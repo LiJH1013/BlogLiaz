@@ -24,7 +24,7 @@
 .kicker,
 .sectionLabel > p {
   margin: 0;
-  font: 900 11px/1 var(--font-display);
+  font: 900 12px/1 var(--font-display);
   letter-spacing: .12em;
 }
 
@@ -133,7 +133,7 @@
   position: absolute;
   top: 22px;
   left: 24px;
-  font: 800 9px/1.45 var(--font-display);
+  font: 800 11px/1.45 var(--font-display);
   letter-spacing: .08em;
 }
 
@@ -156,7 +156,7 @@
   right: 22px;
   bottom: 20px;
   text-align: right;
-  font: 900 9px/1.35 var(--font-display);
+  font: 900 11px/1.35 var(--font-display);
   letter-spacing: .1em;
 }
 
@@ -166,7 +166,7 @@
   padding: 8px 10px 7px;
   border: 1px solid var(--ink);
   background: var(--paper);
-  font: 900 10px/1 var(--font-display);
+  font: 900 11px/1 var(--font-display);
   box-shadow: 4px 4px 0 var(--ink);
   transform: translateZ(22px);
 }
@@ -250,7 +250,7 @@
 .pickList a:nth-child(3) { border-right: 0; }
 
 .pickList a > span {
-  font: 900 10px/1 var(--font-display);
+  font: 900 11px/1 var(--font-display);
   letter-spacing: .1em;
 }
 
@@ -302,7 +302,7 @@
 }
 
 .resourceSearch { display: grid; gap: 10px; }
-.resourceSearch label { font-size: 11px; font-weight: 850; letter-spacing: .1em; }
+.resourceSearch label { font-size: 12px; font-weight: 850; letter-spacing: .1em; }
 .resourceSearch kbd { min-width: 20px; min-height: 20px; margin-left: 5px; display: inline-grid; place-content: center; border: 1px solid var(--ink); background: var(--acid); box-shadow: 2px 2px 0 var(--ink); font: inherit; }
 .resourceSearch > span { position: relative; display: flex; align-items: center; }
 
@@ -360,7 +360,7 @@
 }
 
 .categoryFilters button:last-child { border-right: 0; }
-.categoryFilters button small { font: 900 9px/1 var(--font-display); opacity: .64; }
+.categoryFilters button small { font: 900 10px/1 var(--font-display); opacity: .72; }
 .categoryFilters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
 .categoryFilters button:active { transform: scale(.96); }
 
@@ -373,9 +373,9 @@
   gap: 18px;
 }
 
-.resultLine p { margin: 0; font: 900 11px/1 var(--font-display); letter-spacing: .08em; }
-.resultLine span { color: var(--muted); font-size: 11px; }
-.resultLine button { min-height: 32px; padding: 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; font: 750 11px/1 var(--font-body); text-decoration: underline; text-underline-offset: 4px; }
+.resultLine p { margin: 0; font: 900 12px/1 var(--font-display); letter-spacing: .08em; }
+.resultLine span { color: var(--muted); font-size: 12px; }
+.resultLine button { min-height: 32px; padding: 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; font: 750 12px/1 var(--font-body); text-decoration: underline; text-underline-offset: 4px; }
 .copyStatus { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
 .resourceList { border-top: 3px solid var(--ink); }
@@ -420,7 +420,7 @@
   flex-wrap: wrap;
   gap: 8px 18px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: .06em;
 }
@@ -435,7 +435,7 @@
 .resourceCopy h3 a { color: var(--ink); text-decoration: none; }
 .resourceCopy h3 a > span { display: inline-block; font-size: .7em; transition: transform 220ms cubic-bezier(.16,1,.3,1); }
 .resourceCopy > p:nth-of-type(2) { max-width: 54ch; margin: 18px 0 0; color: var(--muted); font-size: 14px; line-height: 1.75; text-wrap: pretty; }
-.resourceCopy ul { margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px 14px; color: var(--muted); list-style: none; font-size: 10px; }
+.resourceCopy ul { margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px 14px; color: var(--muted); list-style: none; font-size: 12px; }
 
 .resourceActions {
   display: grid;
@@ -518,10 +518,10 @@
 @media (max-width: 420px) {
   .heroActions { display: grid; }
   .heroActions a, .heroActions button { width: 100%; }
-  .fieldTag { font-size: 8px; }
+  .fieldTag { font-size: 10px; }
   .fieldTagCrawler { left: -2%; }
   .resourceStats strong { font-size: 42px; }
-  .categoryFilters button { padding-inline: 8px; font-size: 11px; }
+  .categoryFilters button { padding-inline: 8px; font-size: 12px; }
   .resourceCopy h3 { font-size: 28px; }
   .resourceCopy > p:nth-of-type(2) { font-size: 13px; }
 }

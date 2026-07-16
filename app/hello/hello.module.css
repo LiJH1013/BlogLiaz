@@ -12,8 +12,8 @@
 .visitorDesk { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(320px,.9fr) minmax(380px,1.1fr); gap: clamp(36px,7vw,108px); align-items: start; }
 .visitorForm { position: relative; border-top: 3px solid var(--ink); }
 .formHeader { min-height: 70px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--ink); }
-.formHeader > span { font: 900 11px/1 var(--font-display); letter-spacing: .1em; }
-.formHeader > b { padding: 7px 8px 6px; border: 1px solid var(--ink); background: var(--acid); box-shadow: 3px 3px 0 var(--ink); font: 900 10px/1 var(--font-display); letter-spacing: .08em; }
+.formHeader > span { font: 900 12px/1 var(--font-display); letter-spacing: .1em; }
+.formHeader > b { padding: 7px 8px 6px; border: 1px solid var(--ink); background: var(--acid); box-shadow: 3px 3px 0 var(--ink); font: 900 11px/1 var(--font-display); letter-spacing: .08em; }
 .field { position: relative; padding: 24px 0 20px; display: grid; gap: 13px; border-bottom: 1px solid var(--ink); transition: background-color 160ms ease-out, box-shadow 180ms ease-out; }
 .field::before { content: ""; position: absolute; inset: 0 auto 0 -12px; width: 4px; background: var(--accent); transform: scaleY(0); transform-origin: bottom; transition: transform 220ms cubic-bezier(.16,1,.3,1); }
 .field[data-active="true"] { background: color-mix(in oklab,var(--acid) 18%,transparent); box-shadow: inset 0 -3px 0 var(--accent); }
@@ -21,11 +21,11 @@
 .field[data-error="true"] { box-shadow: inset 0 -3px 0 var(--accent); }
 .field > span { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
 .field > span b, .topicField legend { font: 900 14px/1 var(--font-display); letter-spacing: .02em; }
-.field > span small { color: var(--muted); font-size: 11px; }
+.field > span small { color: var(--muted); font-size: 12px; }
 .field input, .field textarea { width: 100%; min-width: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--ink); font: 700 clamp(22px,2.8vw,34px)/1.25 var(--font-body); resize: vertical; }
 .field input::placeholder, .field textarea::placeholder { color: color-mix(in oklab,var(--muted) 58%,transparent); }
 .field input:focus, .field textarea:focus { outline: 0; }
-.field em { min-height: 16px; color: var(--muted); font-size: 11px; font-style: normal; }
+.field em { min-height: 18px; color: var(--muted); font-size: 12px; font-style: normal; }
 .field[data-error="true"] em { color: var(--accent); font-weight: 800; }
 .topicField { min-width: 0; margin: 0; padding: 26px 0 24px; border: 0; border-bottom: 1px solid var(--ink); }
 .topicField legend { margin-bottom: 18px; padding: 0; }
@@ -40,7 +40,7 @@
 
 .characterStage { --cursor-x: 0px; --cursor-y: 0px; --eye-x: var(--cursor-x); --eye-y: var(--cursor-y); position: sticky; top: 118px; min-height: 690px; padding: 18px clamp(16px,3vw,34px) 28px; display: grid; grid-template-rows: auto minmax(380px,1fr) auto; border: 1px solid var(--ink); background: var(--acid); box-shadow: 12px 12px 0 var(--ink); overflow: hidden; }
 .characterStage::before { content: ""; position: absolute; width: 280px; aspect-ratio: 1; right: -130px; top: -120px; border: 1px solid var(--ink); border-radius: 50%; box-shadow: inset 0 0 0 15px var(--acid), inset 0 0 0 17px var(--ink); opacity: .35; pointer-events: none; }
-.stageLabel { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; font: 900 10px/1 var(--font-display); letter-spacing: .1em; }
+.stageLabel { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; font: 900 11px/1 var(--font-display); letter-spacing: .1em; }
 .stageLabel i { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px color-mix(in oklab,var(--accent) 25%,transparent); animation: statusPulse 2s ease-in-out infinite; }
 .paperPerson { position: relative; z-index: 1; width: min(100%,520px); align-self: center; justify-self: center; overflow: visible; }
 .bodyShadow, .headShadow { fill: var(--ink); opacity: .2; }
@@ -77,9 +77,9 @@
 .characterStage[data-focus="age"] .mouthIdle { opacity: 0; }
 .characterStage[data-focus="age"] .mouthWow { opacity: 1; }
 .characterCaption { position: relative; z-index: 2; min-height: 142px; padding: 22px; border: 1px solid var(--ink); background: var(--paper); box-shadow: 6px 6px 0 var(--ink); }
-.characterCaption span { display: block; margin-bottom: 10px; color: var(--muted); font: 900 9px/1 var(--font-display); letter-spacing: .1em; text-transform: uppercase; }
+.characterCaption span { display: block; margin-bottom: 10px; color: var(--muted); font: 900 11px/1 var(--font-display); letter-spacing: .1em; text-transform: uppercase; }
 .characterCaption strong { display: block; font: 900 clamp(24px,3vw,38px)/1.05 var(--font-display); letter-spacing: -.025em; }
-.characterCaption p { margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.characterCaption p { margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
 .stamp { opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(1.5) rotate(-18deg); transition: opacity 160ms ease-out, transform 420ms cubic-bezier(.16,1,.3,1); }
 .stamp circle { fill: none; stroke: var(--accent); stroke-width: 6; }
 .stamp text { fill: var(--accent); font: 900 13px/1 var(--font-display); letter-spacing: .08em; }
