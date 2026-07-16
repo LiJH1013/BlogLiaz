@@ -208,8 +208,6 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
               <Link
                 href={`/articles/${post.slug}`}
                 className={`${styles.postLink} ${styles.archivePostLink}`}
-                onPointerMove={(event) => updateTilt(event, 0.8)}
-                onPointerLeave={resetTilt}
               >
                 <span className={styles.postNumber}>{String(index + 1).padStart(2, "0")}</span>
                 <span className={styles.postMeta}>{post.category}<br />{post.date.replaceAll("-", ".")}</span>
