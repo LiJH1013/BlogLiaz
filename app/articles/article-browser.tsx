@@ -24,7 +24,7 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
     function handleShortcut(event: KeyboardEvent) {
       const target = event.target as HTMLElement | null;
       const typing = target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.isContentEditable;
-      if (event.key === "/" && !typing) {
+      if (event.key === "/" && !typing && !event.metaKey && !event.ctrlKey && !event.altKey) {
         event.preventDefault();
         searchRef.current?.focus();
       }
@@ -40,20 +40,19 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
   function resetFilters() {
     setQuery("");
     setCategory("全部");
-    searchRef.current?.focus();
   }
 
   return (
     <section className={styles.archive} aria-label="文章筛选与列表">
       <div className={styles.filterBar}>
-        <label className={styles.searchField}>
-          <span>搜索 <kbd>/</kbd></span>
+        <div className={styles.searchField}>
+          <label htmlFor="article-search">搜索 <kbd>/</kbd></label>
           <span className={styles.searchControl}>
-            <input ref={searchRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="标题、摘要或标签" type="search" />
+            <input id="article-search" ref={searchRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="标题、摘要或标签" type="search" />
             {query ? <button type="button" onClick={() => setQuery("")} aria-label="清空搜索">清空</button> : null}
           </span>
-        </label>
-        <div className={styles.filterGroup} aria-label="按分类筛选">
+        </div>
+        <div className={styles.filterGroup} role="group" aria-label="按分类筛选">
           {categories.map((item) => (
             <button key={item} type="button" aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</button>
           ))}
