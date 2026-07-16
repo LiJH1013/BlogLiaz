@@ -1,32 +1,27 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
+import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const requestHeaders = await headers();
-  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
-  const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
-  const origin = `${protocol}://${host}`;
-
-  return {
-    metadataBase: new URL(origin),
-    title: { default: "野路子手记", template: "%s / 野路子手记" },
-    description: "关于设计、代码与普通生活的个人博客。不追热点，只记下亲自走过的路。",
-    openGraph: {
-      title: "野路子手记",
-      description: "关于设计、代码与普通生活的个人博客。",
-      type: "website",
-      locale: "zh_CN",
-      images: [{ url: `${origin}/og.png`, width: 1200, height: 630, alt: "野路子手记" }],
-    },
-    twitter: { card: "summary_large_image", images: [`${origin}/og.png`] },
-  };
-}
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: { default: siteConfig.name, template: `%s / ${siteConfig.name}` },
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.author, url: siteConfig.github }],
+  creator: siteConfig.author,
+  alternates: { canonical: "/", types: { "application/rss+xml": "/rss.xml" } },
+  manifest: "/manifest.webmanifest",
+  openGraph: {
+    title: siteConfig.name,
+    description: siteConfig.description,
+    type: "website",
+    locale: "zh_CN",
+    siteName: siteConfig.name,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: siteConfig.name }],
+  },
+  twitter: { card: "summary_large_image", images: ["/og.png"] },
+};
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html lang="zh-CN">
-      <body>{children}</body>
-    </html>
-  );
+  return <html lang="zh-CN"><body>{children}</body></html>;
 }
