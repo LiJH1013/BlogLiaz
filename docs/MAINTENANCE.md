@@ -15,7 +15,7 @@ title: 我的第一篇文章
 date: 2026-07-16
 category: 日常记录
 summary: 用一句话介绍这篇文章，建议控制在 40 字以内。
-tags: [生活, 随笔]
+tags: [生活、随笔]
 readingMinutes: 5
 published: true
 ---

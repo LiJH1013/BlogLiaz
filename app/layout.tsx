@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   applicationName: siteConfig.name,
   authors: [{ name: siteConfig.author, url: siteConfig.github }],
   creator: siteConfig.author,
-  alternates: { canonical: "/", types: { "application/rss+xml": "/rss.xml" } },
+  alternates: { types: { "application/rss+xml": `${siteConfig.url}/rss.xml` } },
   manifest: `${siteConfig.basePath}/manifest.webmanifest`,
   openGraph: {
     title: siteConfig.name,

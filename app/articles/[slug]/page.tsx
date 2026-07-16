@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: post.title,
     description: post.summary,
-    alternates: { canonical: `/articles/${post.slug}` },
+    alternates: { canonical: `${siteConfig.url}/articles/${post.slug}` },
     openGraph: { title: post.title, description: post.summary, type: "article", publishedTime: post.date, url: `${siteConfig.url}/articles/${post.slug}` },
   };
 }
@@ -36,7 +36,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     <div id="top" className={styles.siteShell}>
       <SiteHeader />
       <main id="main-content" className={styles.pageMain}>
-        <article className={styles.article}>
+        <div className={styles.articleLayout}>
+          {post.tableOfContents.length ? (
+            <aside className={styles.articleToc} aria-label="文章目录">
+              <p>本文目录</p>
+              <ol>{post.tableOfContents.map((item, tocIndex) => <li key={item.id}><a href={`#${item.id}`}><span>{String(tocIndex + 1).padStart(2, "0")}</span>{item.title}</a></li>)}</ol>
+            </aside>
+          ) : null}
+          <article className={styles.article}>
           <Link className={styles.articleBack} href="/articles">← 返回全部文章</Link>
           <header className={styles.articleHeader}>
             <p className={styles.pageKicker}>{post.category}</p>
@@ -50,12 +57,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <ShareActions />
             </div>
           </header>
+          {post.tableOfContents.length ? (
+            <details className={styles.mobileToc}>
+              <summary>本文目录 <span>{post.tableOfContents.length} 节</span></summary>
+              <ol>{post.tableOfContents.map((item, tocIndex) => <li key={item.id}><a href={`#${item.id}`}><span>{String(tocIndex + 1).padStart(2, "0")}</span>{item.title}</a></li>)}</ol>
+            </details>
+          ) : null}
           <div className={styles.articleBody} dangerouslySetInnerHTML={{ __html: post.html }} />
           <nav className={styles.articlePager} aria-label="上一篇和下一篇">
             {newer ? <Link href={`/articles/${newer.slug}`}><small>较新一篇</small><strong>{newer.title}</strong></Link> : <span />}
             {older ? <Link href={`/articles/${older.slug}`}><small>较早一篇</small><strong>{older.title}</strong></Link> : <span />}
           </nav>
-        </article>
+          </article>
+        </div>
       </main>
       <SiteFooter />
     </div>

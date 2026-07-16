@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
+import { BackToTop, PrimaryNavigation } from "./interactive-chrome";
 import styles from "./site.module.css";
 
 export function SiteHeader() {
@@ -11,13 +12,10 @@ export function SiteHeader() {
         <Link className={styles.brand} href="/" aria-label="野路子手记首页">
           <span>野</span><span>路</span><span>子</span>
         </Link>
-        <nav className={styles.nav} aria-label="主导航">
-          <Link href="/articles">文章</Link>
-          <Link href="/about">关于</Link>
-          <a href={siteConfig.github} target="_blank" rel="noreferrer">GitHub</a>
-        </nav>
+        <PrimaryNavigation />
         <span className={styles.headerMark}>✦</span>
       </header>
+      <BackToTop />
     </>
   );
 }
@@ -34,7 +32,7 @@ export function SiteFooter() {
         <Link href="/about">关于</Link>
         <Link href="/privacy">隐私</Link>
         <a href={`${siteConfig.basePath}/rss.xml`}>RSS</a>
-        <a href="#top">回到顶部 ↑</a>
+        <a href={siteConfig.repository} target="_blank" rel="noreferrer">GitHub</a>
       </nav>
       <p className={styles.copyright}>© 2026 / MADE WITH CURIOSITY</p>
     </footer>

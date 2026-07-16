@@ -1,5 +1,6 @@
 import { marked } from "marked";
 import { rawPosts } from "@/content/posts.generated";
+import { siteConfig } from "@/lib/site";
 
 export type Post = {
   slug: string;
@@ -12,6 +13,7 @@ export type Post = {
   published: boolean;
   body: string;
   html: string;
+  tableOfContents: { id: string; title: string }[];
 };
 
 function parseFrontmatter(source: string) {
@@ -28,12 +30,29 @@ function parseFrontmatter(source: string) {
 }
 
 function parseTags(value = "") {
-  return value.replace(/^\[|\]$/g, "").split(",").map((tag) => tag.trim()).filter(Boolean);
+  return value.replace(/^\[|\]$/g, "").split(/[,、]/).map((tag) => tag.trim()).filter(Boolean);
 }
 
 function createPost(path: string, source: string): Post {
   const { data, body } = parseFrontmatter(source);
   const slug = path.split("/").pop()?.replace(/\.md$/, "") ?? "";
+  for (const field of ["title", "date", "category", "summary"] as const) {
+    if (!data[field]) throw new Error(`${path} 缺少 ${field}`);
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(data.date) || Number.isNaN(Date.parse(`${data.date}T00:00:00Z`))) {
+    throw new Error(`${path} 的 date 必须使用 YYYY-MM-DD 格式`);
+  }
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+    throw new Error(`${path} 的文件名只能使用小写英文、数字和连字符`);
+  }
+  const tableOfContents: { id: string; title: string }[] = [];
+  const html = (marked.parse(body) as string).replace(/<h2>([\s\S]*?)<\/h2>/g, (heading, content) => {
+    const title = content.replace(/<[^>]+>/g, "").trim();
+    const id = `section-${tableOfContents.length + 1}`;
+    tableOfContents.push({ id, title });
+    return heading.replace("<h2>", `<h2 id="${id}">`);
+  }).replace(/(href|src)="\/(?!\/)/g, `$1="${siteConfig.basePath}/`);
+
   return {
     slug,
     title: data.title,
@@ -44,7 +63,8 @@ function createPost(path: string, source: string): Post {
     readingMinutes: Number(data.readingMinutes || 4),
     published: data.published !== "false",
     body,
-    html: marked.parse(body) as string,
+    html,
+    tableOfContents,
   };
 }
 

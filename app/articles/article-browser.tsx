@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "../site.module.css";
 
 type BrowserPost = { slug: string; title: string; date: string; category: string; summary: string; tags: string[] };
@@ -9,6 +9,7 @@ type BrowserPost = { slug: string; title: string; date: string; category: string
 export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("全部");
+  const searchRef = useRef<HTMLInputElement>(null);
   const categories = ["全部", ...Array.from(new Set(posts.map((post) => post.category)))];
   const filtered = useMemo(() => {
     const keyword = query.trim().toLocaleLowerCase("zh-CN");
@@ -19,19 +20,48 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
     });
   }, [category, posts, query]);
 
+  useEffect(() => {
+    function handleShortcut(event: KeyboardEvent) {
+      const target = event.target as HTMLElement | null;
+      const typing = target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.isContentEditable;
+      if (event.key === "/" && !typing) {
+        event.preventDefault();
+        searchRef.current?.focus();
+      }
+      if (event.key === "Escape" && document.activeElement === searchRef.current) {
+        setQuery("");
+        searchRef.current?.blur();
+      }
+    }
+    window.addEventListener("keydown", handleShortcut);
+    return () => window.removeEventListener("keydown", handleShortcut);
+  }, []);
+
+  function resetFilters() {
+    setQuery("");
+    setCategory("全部");
+    searchRef.current?.focus();
+  }
+
   return (
     <section className={styles.archive} aria-label="文章筛选与列表">
       <div className={styles.filterBar}>
         <label className={styles.searchField}>
-          <span>搜索</span>
-          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="标题、摘要或标签" type="search" />
+          <span>搜索 <kbd>/</kbd></span>
+          <span className={styles.searchControl}>
+            <input ref={searchRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder="标题、摘要或标签" type="search" />
+            {query ? <button type="button" onClick={() => setQuery("")} aria-label="清空搜索">清空</button> : null}
+          </span>
         </label>
         <div className={styles.filterGroup} aria-label="按分类筛选">
           {categories.map((item) => (
             <button key={item} type="button" aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</button>
           ))}
         </div>
-        <p className={styles.resultCount} aria-live="polite">{String(filtered.length).padStart(2, "0")} 篇文章</p>
+        <div className={styles.resultSummary}>
+          <p className={styles.resultCount} aria-live="polite">{String(filtered.length).padStart(2, "0")} 篇文章</p>
+          {(query || category !== "全部") ? <button type="button" onClick={resetFilters}>重置筛选</button> : null}
+        </div>
       </div>
 
       {filtered.length ? (
@@ -48,7 +78,7 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
           ))}
         </div>
       ) : (
-        <div className={styles.emptyState}><strong>没有找到文章</strong><p>换一个关键词，或选择“全部”分类再试试。</p></div>
+        <div className={styles.emptyState}><strong>没有找到文章</strong><p>换一个关键词，或清除当前筛选。</p><button type="button" onClick={resetFilters}>显示全部文章</button></div>
       )}
     </section>
   );

@@ -34,3 +34,15 @@ test("publishes discovery files", async () => {
     assert.match(await response.text(), pattern, route);
   }
 });
+
+test("renders verified copy and article navigation", async () => {
+  const home = await (await request("/")).text();
+  const about = await (await request("/about")).text();
+  const article = await (await request("/articles/weekly-notes")).text();
+
+  assert.doesNotMatch(home, /读完《|走了十二公里/);
+  assert.doesNotMatch(about, /TO BE CONTINUED|暂时用一张字卡/);
+  assert.match(article, /本文目录/);
+  assert.match(article, /id="section-1"/);
+  assert.match(article, /href="#section-1"/);
+});
