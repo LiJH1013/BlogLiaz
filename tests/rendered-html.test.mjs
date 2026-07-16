@@ -11,7 +11,7 @@ async function request(path) {
 }
 
 test("renders the public blog routes", async () => {
-  const routes = ["/", "/articles", "/articles/weekly-notes", "/articles/github-pages-basepath", "/articles/reliable-web-collector", "/about", "/privacy"];
+  const routes = ["/", "/articles", "/resources", "/articles/weekly-notes", "/articles/github-pages-basepath", "/articles/reliable-web-collector", "/about", "/privacy"];
   for (const route of routes) {
     const response = await request(route);
     assert.equal(response.status, 200, route);
@@ -38,6 +38,7 @@ test("publishes discovery files", async () => {
 test("renders verified copy and article navigation", async () => {
   const home = await (await request("/")).text();
   const archive = await (await request("/articles")).text();
+  const resources = await (await request("/resources")).text();
   const about = await (await request("/about")).text();
   const article = await (await request("/articles/weekly-notes")).text();
 
@@ -47,6 +48,9 @@ test("renders verified copy and article navigation", async () => {
   assert.match(archive, /START HERE \/ 从这里开始/);
   assert.match(archive, /按技术方向浏览/);
   assert.match(archive, /查看全部(?:\s|<!--.*?-->)*07(?:\s|<!--.*?-->)*篇/);
+  assert.match(resources, /RESOURCE FIELD \/ CURATED BY LIAZ/);
+  assert.match(resources, /<span>资源<\/span><span>工作台<\/span>/);
+  assert.match(resources, /收藏夹/);
   assert.match(article, /本文目录/);
   assert.match(article, /id="section-1"/);
   assert.match(article, /href="#section-1"/);

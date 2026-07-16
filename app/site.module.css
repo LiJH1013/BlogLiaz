@@ -294,8 +294,8 @@
 
 @media (max-width: 400px) {
   .brand span { width: 28px; height: 28px; font-size: 15px; }
-  .nav { gap: 11px; }
-  .nav a { font-size: 12px; }
+  .nav { gap: 8px; }
+  .nav a { font-size: 11px; }
   .heroTitle { font-size: 76px; }
   .heroFoot p { font-size: 14px; }
   .filterGroup button { padding-inline: 12px; }

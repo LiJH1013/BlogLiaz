@@ -8,6 +8,7 @@ import styles from "./site.module.css";
 
 const navigation = [
   { href: "/articles", label: "文章" },
+  { href: "/resources", label: "资源" },
   { href: "/about", label: "关于" },
 ];
 

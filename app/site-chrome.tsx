@@ -29,6 +29,7 @@ export function SiteFooter() {
       </div>
       <nav aria-label="页脚导航">
         <Link href="/articles">全部文章</Link>
+        <Link href="/resources">资源</Link>
         <Link href="/about">关于</Link>
         <Link href="/privacy">隐私</Link>
         <a href={`${siteConfig.basePath}/rss.xml`}>RSS</a>
