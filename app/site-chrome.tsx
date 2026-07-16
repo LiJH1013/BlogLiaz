@@ -13,7 +13,13 @@ export function SiteHeader() {
           <span>野</span><span>路</span><span>子</span>
         </Link>
         <PrimaryNavigation />
-        <span className={styles.headerMark}>LIAZ</span>
+        <a
+          className={styles.headerMark}
+          href={siteConfig.github}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="打开 LIAZ 的 GitHub 主页（新窗口）"
+        >LIAZ</a>
       </header>
       <BackToTop />
     </>
@@ -31,6 +37,7 @@ export function SiteFooter() {
         <Link href="/articles">全部文章</Link>
         <Link href="/resources">资源</Link>
         <Link href="/about">关于</Link>
+        <Link href="/hello">打个招呼</Link>
         <Link href="/privacy">隐私</Link>
         <a href={`${siteConfig.basePath}/rss.xml`}>RSS</a>
         <a href={siteConfig.repository} target="_blank" rel="noreferrer">GitHub</a>

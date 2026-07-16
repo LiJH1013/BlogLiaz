@@ -11,7 +11,7 @@ async function request(path) {
 }
 
 test("renders the public blog routes", async () => {
-  const routes = ["/", "/articles", "/resources", "/articles/weekly-notes", "/articles/github-pages-basepath", "/articles/reliable-web-collector", "/about", "/privacy"];
+  const routes = ["/", "/articles", "/resources", "/articles/weekly-notes", "/articles/github-pages-basepath", "/articles/reliable-web-collector", "/about", "/hello", "/privacy"];
   for (const route of routes) {
     const response = await request(route);
     assert.equal(response.status, 200, route);
@@ -40,13 +40,19 @@ test("renders verified copy and article navigation", async () => {
   const archive = await (await request("/articles")).text();
   const resources = await (await request("/resources")).text();
   const about = await (await request("/about")).text();
+  const hello = await (await request("/hello")).text();
   const article = await (await request("/articles/weekly-notes")).text();
 
   assert.doesNotMatch(home, /读完《|走了十二公里/);
   assert.doesNotMatch(about, /TO BE CONTINUED|暂时用一张字卡/);
   assert.match(about, /作者 \/ LIAZ/);
+  assert.match(about, /href="\/hello"/);
+  assert.match(hello, /HELLO LIAZ \/ 访客登记处/);
+  assert.match(hello, /只用来触发纸片人的反应/);
+  assert.match(hello, /生成访客签/);
   assert.match(home, /前端、爬虫与 AI 工程/);
-  assert.match(home, />LIAZ<\/span>/);
+  assert.match(home, />LIAZ<\/a>/);
+  assert.match(home, /aria-label="打开 LIAZ 的 GitHub 主页（新窗口）"/);
   assert.match(home, /aria-label="进入文章归档页"/);
   assert.match(archive, /START HERE \/ 从这里开始/);
   assert.match(archive, /按技术方向浏览/);

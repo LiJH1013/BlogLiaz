@@ -27,6 +27,7 @@ export default function AboutPage() {
             <hr />
             <p><strong>项目仓库</strong><br /><a href={siteConfig.repository} target="_blank" rel="noreferrer" aria-label="打开 BlogLiaz 的 GitHub 仓库（新窗口）">github.com/li-j-h/BlogLiaz ↗</a></p>
             <p><strong>隐私说明</strong><br />本站当前不设置账户、不主动收集个人资料，也不使用广告追踪。详细内容请查看<Link href="/privacy">隐私页</Link>。</p>
+            <Link className={styles.solidLink} href="/hello">去访客登记处 <span>→</span></Link>
           </div>
         </div>
       </main>
