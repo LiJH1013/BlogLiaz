@@ -1,6 +1,8 @@
 import { getAllPosts } from "@/lib/posts";
 import { siteConfig } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 function escapeXml(value: string) {
   return value.replace(/[<>&'\"]/g, (char) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", "'": "&apos;", '"': "&quot;" }[char] ?? char));
 }

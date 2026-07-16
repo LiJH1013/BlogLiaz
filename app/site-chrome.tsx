@@ -33,7 +33,7 @@ export function SiteFooter() {
         <Link href="/articles">全部文章</Link>
         <Link href="/about">关于</Link>
         <Link href="/privacy">隐私</Link>
-        <a href="/rss.xml">RSS</a>
+        <a href={`${siteConfig.basePath}/rss.xml`}>RSS</a>
         <a href="#top">回到顶部 ↑</a>
       </nav>
       <p className={styles.copyright}>© 2026 / MADE WITH CURIOSITY</p>

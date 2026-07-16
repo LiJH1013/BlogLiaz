@@ -1,4 +1,5 @@
 import { marked } from "marked";
+import { rawPosts } from "@/content/posts.generated";
 
 export type Post = {
   slug: string;
@@ -12,12 +13,6 @@ export type Post = {
   body: string;
   html: string;
 };
-
-const modules = import.meta.glob("../content/posts/*.md", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
 
 function parseFrontmatter(source: string) {
   const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/.exec(source.trim());
@@ -53,8 +48,8 @@ function createPost(path: string, source: string): Post {
   };
 }
 
-const posts = Object.entries(modules)
-  .map(([path, source]) => createPost(path, source))
+const posts = Object.entries(rawPosts)
+  .map(([file, source]) => createPost(file, source))
   .filter((post) => post.published)
   .sort((a, b) => b.date.localeCompare(a.date));
 

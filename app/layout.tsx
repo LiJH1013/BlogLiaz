@@ -10,16 +10,16 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.author, url: siteConfig.github }],
   creator: siteConfig.author,
   alternates: { canonical: "/", types: { "application/rss+xml": "/rss.xml" } },
-  manifest: "/manifest.webmanifest",
+  manifest: `${siteConfig.basePath}/manifest.webmanifest`,
   openGraph: {
     title: siteConfig.name,
     description: siteConfig.description,
     type: "website",
     locale: "zh_CN",
     siteName: siteConfig.name,
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: siteConfig.name }],
+    images: [{ url: `${siteConfig.url}/og.png`, width: 1200, height: 630, alt: siteConfig.name }],
   },
-  twitter: { card: "summary_large_image", images: ["/og.png"] },
+  twitter: { card: "summary_large_image", images: [`${siteConfig.url}/og.png`] },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
