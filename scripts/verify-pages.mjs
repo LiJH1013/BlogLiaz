@@ -30,6 +30,7 @@ const sitemap = await readFile(join(out, "sitemap.xml"), "utf8");
 
 assert.match(home, /\/BlogLiaz\/_next\//);
 assert.match(home, /\/BlogLiaz\/articles/);
+assert.match(home, /aria-label="进入文章归档页"[^>]*href="\/BlogLiaz\/articles\/"/);
 assert.match(home, /canonical" href="https:\/\/li-j-h\.github\.io\/BlogLiaz/);
 assert.match(about, /href="\/BlogLiaz\/privacy/);
 assert.match(resources, /href="\/BlogLiaz\/resources/);

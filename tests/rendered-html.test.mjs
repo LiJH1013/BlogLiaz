@@ -47,6 +47,7 @@ test("renders verified copy and article navigation", async () => {
   assert.match(about, /作者 \/ LIAZ/);
   assert.match(home, /前端、爬虫与 AI 工程/);
   assert.match(home, />LIAZ<\/span>/);
+  assert.match(home, /aria-label="进入文章归档页"/);
   assert.match(archive, /START HERE \/ 从这里开始/);
   assert.match(archive, /按技术方向浏览/);
   assert.match(archive, /查看全部(?:\s|<!--.*?-->)*07(?:\s|<!--.*?-->)*篇/);

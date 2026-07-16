@@ -31,12 +31,19 @@
 .heroFoot { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
 .heroFoot p { max-width: 32ch; margin: 0; font-size: clamp(16px,1.5vw,21px); line-height: 1.65; text-wrap: pretty; }
 .roundLink { display: grid; place-items: center; width: 82px; height: 82px; flex: 0 0 auto; border-radius: 50%; background: var(--ink); color: var(--paper); text-align: center; text-decoration: none; font-size: 12px; line-height: 1.2; transition: transform 260ms cubic-bezier(.16,1,.3,1), background-color 160ms ease-out; }
-.depthStage { --pointer-x: 0deg; --pointer-y: 0deg; position: absolute; z-index: 1; right: clamp(30px,10vw,160px); top: 38%; width: 180px; height: 150px; display: grid; place-items: center; perspective: 720px; transform: rotateX(var(--pointer-y)) rotateY(var(--pointer-x)); transform-style: preserve-3d; transition: transform 300ms cubic-bezier(.16,1,.3,1); }
+.depthStage { --pointer-x: 0deg; --pointer-y: 0deg; --pointer-shift-x: 0px; --pointer-shift-y: 0px; --depth-scale: 1; position: absolute; z-index: 3; right: clamp(30px,10vw,160px); top: 36%; width: 220px; height: 190px; display: grid; place-items: center; perspective: 720px; color: var(--ink); text-decoration: none; cursor: pointer; touch-action: manipulation; transform: translate3d(var(--pointer-shift-x),var(--pointer-shift-y),0) rotateX(var(--pointer-y)) rotateY(var(--pointer-x)) scale(var(--depth-scale)); transform-style: preserve-3d; transition: transform 300ms cubic-bezier(.16,1,.3,1); }
 .depthObject { --depth: 28px; position: relative; width: 128px; height: 102px; transform-style: preserve-3d; transform: rotateX(-11deg) rotateY(-18deg) rotateZ(7deg); animation: paperFloat 7s ease-in-out infinite alternate; }
-.depthObject > span { position: absolute; display: grid; place-content: center; border: 1px solid var(--ink); font: 900 11px/1.05 var(--font-display); letter-spacing: .05em; text-align: center; backface-visibility: hidden; }
+.depthObject > span { position: absolute; display: grid; place-content: center; border: 1px solid var(--ink); font: 900 11px/1.05 var(--font-display); letter-spacing: .05em; text-align: center; backface-visibility: hidden; transition: box-shadow 260ms cubic-bezier(.16,1,.3,1), filter 260ms ease; }
 .depthFront { inset: 0; background: var(--accent); transform: translateZ(var(--depth)); }
 .depthTop { left: 0; top: 0; width: 128px; height: var(--depth); background: var(--acid); transform-origin: top; transform: rotateX(90deg) translateY(calc(var(--depth) * -1)); }
 .depthSide { right: 0; top: 0; width: var(--depth); height: 102px; background: var(--ink); color: var(--paper); transform-origin: right; transform: rotateY(90deg) translateX(var(--depth)); writing-mode: vertical-rl; }
+.depthAction { position: absolute; right: 0; bottom: 7px; display: inline-flex; align-items: center; gap: 8px; padding: 7px 9px 6px; border: 1px solid var(--ink); background: var(--paper); box-shadow: 3px 3px 0 var(--ink); font: 900 10px/1 var(--font-display); letter-spacing: .06em; opacity: .72; transform: translateY(7px); transition: opacity 200ms ease, transform 260ms cubic-bezier(.16,1,.3,1), background-color 160ms ease, color 160ms ease; }
+.depthAction b { font-size: 15px; line-height: .7; transition: transform 260ms cubic-bezier(.16,1,.3,1); }
+.depthStage:hover, .depthStage:focus-visible { --depth-scale: 1.08; }
+.depthStage:hover .depthFront, .depthStage:focus-visible .depthFront { box-shadow: 9px 10px 0 var(--ink); filter: saturate(1.12); }
+.depthStage:hover .depthAction, .depthStage:focus-visible .depthAction { background: var(--ink); color: var(--paper); opacity: 1; transform: translateY(0); }
+.depthStage:hover .depthAction b, .depthStage:focus-visible .depthAction b { transform: translate(2px,-2px); }
+.depthStage:active { --depth-scale: .98; }
 @keyframes paperFloat { from { transform: rotateX(-11deg) rotateY(-18deg) rotateZ(7deg) translate3d(0,0,0); } to { transform: rotateX(-8deg) rotateY(-12deg) rotateZ(5deg) translate3d(0,-8px,10px); } }
 .enterOne, .enterTwo, .enterThree { opacity: 0; animation: enter 850ms cubic-bezier(.16,1,.3,1) forwards; }
 .enterOne { animation-delay: 80ms; } .enterTwo { animation-delay: 170ms; } .enterThree { animation-delay: 310ms; }
@@ -238,11 +245,13 @@
   .hero { min-height: calc(100svh - 76px); padding-top: 48px; }
   .heroTitle { font-size: clamp(70px,26vw,118px); line-height: .78; }
   .heroAccent { margin-left: 8vw; }
-  .depthStage { top: 27%; right: 18px; width: 94px; height: 82px; perspective: none; }
+  .depthStage { top: 25%; right: 12px; width: 112px; height: 108px; perspective: none; }
   .depthObject { --depth: 16px; width: 82px; height: 66px; transform: rotate(-7deg); animation: none; }
   .depthObject > span { font-size: 8px; }
   .depthFront { width: 82px; height: 66px; transform: none; }
   .depthTop, .depthSide { display: none !important; }
+  .depthAction { right: 0; bottom: 0; padding: 5px 6px 4px; font-size: 8px; opacity: 1; transform: none; }
+  .depthAction b { font-size: 11px; }
   .heroFoot { align-items: center; }
   .roundLink { width: 68px; height: 68px; }
   .section { grid-template-columns: 1fr; }
@@ -314,6 +323,7 @@
   .scrollProgress { display: none; }
   .revealSection { animation: none; }
   .depthStage { transform: none; transition: none; }
+  .depthStage:hover, .depthStage:focus-visible, .depthStage:active { --depth-scale: 1; }
   .archiveLead::after { display: none; }
   .topicButton, .featuredStory, .archivePostLink { transform: none; }
 }
