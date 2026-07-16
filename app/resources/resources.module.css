@@ -278,10 +278,16 @@
 
 .indexNote {
   max-width: 18ch;
-  margin: 42px 0 0;
+  margin: 56px 0 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.7;
+}
+
+.resourceIndex .sectionLabel {
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  align-content: start;
 }
 
 .resourceIndex .sectionLabel h2 {
