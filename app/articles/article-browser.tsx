@@ -28,11 +28,16 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("全部");
   const [searchActive, setSearchActive] = useState(false);
+  const [scanning, setScanning] = useState(false);
+  const [scanStatus, setScanStatus] = useState("准星已就绪");
   const searchRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
-  const pointerInstrumentRef = useRef<HTMLDivElement>(null);
+  const archiveLeadRef = useRef<HTMLDivElement>(null);
+  const pointerInstrumentRef = useRef<HTMLButtonElement>(null);
   const pointerReadoutRef = useRef<HTMLElement>(null);
   const pointerFrame = useRef<number | null>(null);
+  const scanFrame = useRef<number | null>(null);
+  const scanTimer = useRef<number | null>(null);
   const pointerPosition = useRef({ x: 0, y: 0 });
   const featuredPost = posts.find((post) => post.featured) ?? posts[0];
   const topics = topicOrder
@@ -67,6 +72,8 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
 
   useEffect(() => () => {
     if (pointerFrame.current !== null) cancelAnimationFrame(pointerFrame.current);
+    if (scanFrame.current !== null) cancelAnimationFrame(scanFrame.current);
+    if (scanTimer.current !== null) window.clearTimeout(scanTimer.current);
   }, []);
 
   function updateInkFollower(event: ReactPointerEvent<HTMLDivElement>) {
@@ -120,6 +127,34 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
     event.currentTarget.style.setProperty("--magnet-y", "0px");
   }
 
+  function triggerScan(origin: HTMLElement) {
+    const lead = archiveLeadRef.current;
+    if (lead) {
+      const leadBounds = lead.getBoundingClientRect();
+      const originBounds = origin.getBoundingClientRect();
+      const x = originBounds.left + originBounds.width / 2 - leadBounds.left;
+      const y = originBounds.top + originBounds.height / 2 - leadBounds.top;
+      lead.style.setProperty("--cursor-x", `${x}px`);
+      lead.style.setProperty("--cursor-y", `${y}px`);
+    }
+
+    if (scanFrame.current !== null) cancelAnimationFrame(scanFrame.current);
+    if (scanTimer.current !== null) window.clearTimeout(scanTimer.current);
+    setScanning(false);
+    setScanStatus("正在扫描文章方向…");
+    scanFrame.current = requestAnimationFrame(() => {
+      scanFrame.current = requestAnimationFrame(() => {
+        scanFrame.current = null;
+        setScanning(true);
+        setScanStatus(`扫描完成：发现 ${topics.length} 个方向、${posts.length} 篇文章`);
+        scanTimer.current = window.setTimeout(() => {
+          setScanning(false);
+          scanTimer.current = null;
+        }, 1180);
+      });
+    });
+  }
+
   function selectCategory(nextCategory: string) {
     setCategory(nextCategory);
     const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
@@ -132,9 +167,10 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
   }
 
   return (
-    <section className={styles.archiveExperience} data-search-active={searchActive} aria-label="文章导航、筛选与列表">
+    <section className={styles.archiveExperience} data-search-active={searchActive} data-scanning={scanning} aria-label="文章导航、筛选与列表">
       <div
         className={styles.archiveLead}
+        ref={archiveLeadRef}
         onPointerMove={updateInkFollower}
         onPointerLeave={(event) => { event.currentTarget.dataset.pointerActive = "false"; }}
       >
@@ -143,20 +179,24 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
           <p className={styles.archiveStatement}>这里主要记录可复现的技术过程，也偶尔留下普通生活。</p>
           <p>从前端、爬虫和 AI 开始，按兴趣选择方向，或者直接搜索一个问题。</p>
           <button className={styles.archiveAllButton} type="button" aria-pressed={category === "全部"} onClick={() => selectCategory("全部")}>查看全部 {String(posts.length).padStart(2, "0")} 篇</button>
+          <button className={styles.scanFallback} type="button" onClick={(event) => triggerScan(event.currentTarget)}>SCAN / 触发扫描</button>
         </div>
-        <div
+        <button
           className={styles.cursorInstrument}
           data-cursor-instrument
           ref={pointerInstrumentRef}
-          aria-hidden="true"
+          type="button"
+          aria-label="启动文章方向扫描特效"
+          onClick={(event) => triggerScan(event.currentTarget)}
         >
-          <span className={styles.cursorOuter} />
-          <span className={styles.cursorInner} />
-          <span className={styles.cursorSweep} />
-          <span className={styles.cursorDot} />
-          <i>FRONT</i><i>CRAWL</i><i>AI</i><i>LIFE</i>
-          <b data-coordinate="X 000 / Y 000" ref={pointerReadoutRef}>SCAN</b>
-        </div>
+          <span className={styles.cursorOuter} aria-hidden="true" />
+          <span className={styles.cursorInner} aria-hidden="true" />
+          <span className={styles.cursorSweep} aria-hidden="true" />
+          <span className={styles.cursorDot} aria-hidden="true" />
+          <i aria-hidden="true">FRONT</i><i aria-hidden="true">CRAWL</i><i aria-hidden="true">AI</i><i aria-hidden="true">LIFE</i>
+          <b data-coordinate="X 000 / Y 000" ref={pointerReadoutRef} aria-hidden="true">SCAN</b>
+        </button>
+        <p className={styles.scanStatus} aria-live="polite">{scanStatus}</p>
       </div>
 
       <div className={styles.topicMap} aria-label="按技术方向浏览">

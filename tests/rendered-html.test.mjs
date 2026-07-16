@@ -67,6 +67,8 @@ test("renders verified copy and article navigation", async () => {
   assert.match(archive, /START HERE \/ 从这里开始/);
   assert.match(archive, /按技术方向浏览/);
   assert.match(archive, /data-cursor-instrument="true"/);
+  assert.match(archive, /aria-label="启动文章方向扫描特效"/);
+  assert.match(archive, /SCAN \/ 触发扫描/);
   assert.match(archive, /FRONT/);
   assert.match(archive, /查看全部(?:\s|<!--.*?-->)*07(?:\s|<!--.*?-->)*篇/);
   assert.match(resources, /RESOURCE FIELD \/ CURATED BY LIAZ/);
@@ -82,4 +84,6 @@ test("keeps interactive article text out of transform layers", () => {
   assert.doesNotMatch(cssRule(".topicButton"), /\btransform\s*:/);
   assert.doesNotMatch(cssRule(".featuredStory"), /\btransform\s*:/);
   assert.match(siteCss, /\.topicButton:hover::before/);
+  assert.match(siteCss, /@keyframes scanBurst/);
+  assert.match(siteCss, /@keyframes topicScan/);
 });
