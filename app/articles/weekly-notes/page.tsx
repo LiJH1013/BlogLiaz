@@ -1,0 +1,10 @@
+import type { Metadata } from "next";
+import { ArticleShell } from "../article-shell";
+export const metadata: Metadata = { title: "我怎样整理一周里真正有用的信息" };
+export default function Page() { return <ArticleShell category="信息整理" date="2026.06.28" title="我怎样整理一周里真正有用的信息">
+  <p>以前我的收藏夹越来越长，真正回看的内容却越来越少。后来我把流程缩短成三步：当下摘一句，周末讲清楚，最后决定是否行动。</p>
+  <h2>摘录必须带上原因</h2><p>单独复制一段话，很快就会失去上下文。我会再写一句“为什么现在需要它”，哪怕只有十几个字。</p>
+  <h2>用自己的话重写</h2><p>周末只处理这一周的摘录。能用自己的话说明白，就留下；讲不明白的，要么重新阅读，要么删除。</p>
+  <blockquote>信息整理不是保存更多，而是让重要内容有机会改变下一步行动。</blockquote>
+  <h2>每周只留下一个动作</h2><p>可能是修改工作流程，也可能是给某个人写信。没有动作的信息依然可以有趣，但不再伪装成“以后有用”。</p>
+</ArticleShell>; }
