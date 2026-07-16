@@ -56,6 +56,9 @@ test("renders verified copy and article navigation", async () => {
   assert.doesNotMatch(home, /读完《|走了十二公里/);
   assert.doesNotMatch(about, /TO BE CONTINUED|暂时用一张字卡/);
   assert.match(about, /作者 \/ LIAZ/);
+  assert.match(about, /data-about-reader="true"/);
+  assert.match(about, /LIAZ \/ TEA, READ, REPEAT/);
+  assert.match(about, /喝茶一边看书/);
   assert.match(about, /href="\/hello"/);
   assert.match(hello, /HELLO LIAZ \/ 访客登记处/);
   assert.match(hello, /只用来触发纸片人的反应/);
