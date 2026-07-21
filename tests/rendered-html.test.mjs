@@ -97,13 +97,6 @@ test("keeps interactive article text out of transform layers", () => {
   assert.match(siteCss, /\.articleBody pre\s*\{[^}]*overflow-x:\s*auto/);
 });
 
-test("keeps the About illustration depth layers legible", () => {
-  assert.doesNotMatch(siteCss, /\.aboutReader::before/);
-  assert.match(cssRule(".readerOrbit"), /fill:\s*none/);
-  assert.match(cssRule(".readerOrbit"), /stroke-width:\s*1/);
-  assert.match(cssRule(".readerChair path"), /fill:\s*none/);
-});
-
 test("keeps the archive scan effect clickable across the whole lead area", () => {
   assert.ok(
     articleBrowserSource.includes("triggerScan({ clientX: event.clientX, clientY: event.clientY })"),

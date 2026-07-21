@@ -19,15 +19,13 @@ export default function AboutPage() {
           <figure className={styles.aboutReader} data-about-reader role="img" aria-label="LIAZ 坐在桌前，一边喝茶一边看书的线稿插画">
             <svg viewBox="0 0 360 260" aria-hidden="true">
               <g className={styles.readerBackdrop}>
-                <circle className={styles.readerBackdropFill} cx="235" cy="120" r="88" />
-                <circle className={styles.readerOrbit} cx="235" cy="120" r="72" />
-                <circle className={styles.readerOrbit} cx="235" cy="120" r="56" />
-                <path className={styles.readerGround} d="M28 228H332" />
+                <circle cx="235" cy="120" r="92" />
+                <path d="M22 225H340" />
               </g>
 
               <g className={styles.readerChair}>
-                <path d="M264 119h44v91M264 134h31v75" />
-                <path d="M274 208l-12 21M299 208l14 21" />
+                <path d="M262 116h48v93h-12v-76h-36z" />
+                <path d="M272 205l-12 26M302 205l15 26" />
               </g>
 
               <g className={styles.readerPerson}>
