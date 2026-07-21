@@ -42,3 +42,6 @@ next-env.d.ts
 /outputs/
 /work/
 .codex-dev.*.log
+
+# local writing drafts; reviewed posts belong in /content/posts
+/drafts/
