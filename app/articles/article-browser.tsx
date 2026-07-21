@@ -145,13 +145,20 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
     event.currentTarget.style.setProperty("--magnet-y", "0px");
   }
 
-  function triggerScan(origin: HTMLElement) {
+  function elementCenter(element: HTMLElement) {
+    const bounds = element.getBoundingClientRect();
+    return {
+      clientX: bounds.left + bounds.width / 2,
+      clientY: bounds.top + bounds.height / 2,
+    };
+  }
+
+  function triggerScan(origin: { clientX: number; clientY: number }) {
     const lead = archiveLeadRef.current;
     if (lead) {
       const leadBounds = lead.getBoundingClientRect();
-      const originBounds = origin.getBoundingClientRect();
-      const x = originBounds.left + originBounds.width / 2 - leadBounds.left;
-      const y = originBounds.top + originBounds.height / 2 - leadBounds.top;
+      const x = origin.clientX - leadBounds.left;
+      const y = origin.clientY - leadBounds.top;
       lead.style.setProperty("--cursor-x", `${x}px`);
       lead.style.setProperty("--cursor-y", `${y}px`);
     }
@@ -176,7 +183,7 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
   function handleLeadClick(event: ReactMouseEvent<HTMLDivElement>) {
     const target = event.target as HTMLElement;
     if (target.closest("a, button, input")) return;
-    triggerScan(event.currentTarget);
+    triggerScan({ clientX: event.clientX, clientY: event.clientY });
   }
 
   function selectCategory(nextCategory: string) {
@@ -209,7 +216,7 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
           <p className={styles.archiveStatement}>这里主要记录可复现的技术过程，也偶尔留下普通生活。</p>
           <p>从前端、爬虫和 AI 开始，按兴趣选择方向，或者直接搜索一个问题。</p>
           <button className={styles.archiveAllButton} type="button" aria-pressed={category === "全部"} onClick={() => selectCategory("全部")}>查看全部 {String(posts.length).padStart(2, "0")} 篇</button>
-          <button className={styles.scanFallback} type="button" onClick={(event) => triggerScan(event.currentTarget)}>SCAN / 触发扫描</button>
+          <button className={styles.scanFallback} type="button" onClick={(event) => triggerScan(elementCenter(event.currentTarget))}>SCAN / 触发扫描</button>
         </div>
         <button
           className={styles.cursorInstrument}
@@ -217,7 +224,7 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
           ref={pointerInstrumentRef}
           type="button"
           aria-label="启动文章方向扫描特效"
-          onClick={(event) => { event.stopPropagation(); triggerScan(event.currentTarget); }}
+          onClick={(event) => { event.stopPropagation(); triggerScan(elementCenter(event.currentTarget)); }}
         >
           <span className={styles.cursorOuter} aria-hidden="true" />
           <span className={styles.cursorInner} aria-hidden="true" />

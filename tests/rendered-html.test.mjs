@@ -98,6 +98,14 @@ test("keeps interactive article text out of transform layers", () => {
 });
 
 test("keeps the archive scan effect clickable across the whole lead area", () => {
+  assert.ok(
+    articleBrowserSource.includes("triggerScan({ clientX: event.clientX, clientY: event.clientY })"),
+    "lead-surface scans should start from the actual click coordinates",
+  );
+  assert.ok(
+    !articleBrowserSource.includes("triggerScan(event.currentTarget)"),
+    "the lead container center must not replace the clicked scan origin",
+  );
   assert.match(articleBrowserSource, /data-scan-surface="true"/);
   assert.match(articleBrowserSource, /onClick=\{handleLeadClick\}/);
   assert.match(articleBrowserSource, /closest\("a, button, input"\)/);
