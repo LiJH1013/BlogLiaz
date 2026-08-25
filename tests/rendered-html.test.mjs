@@ -1,9 +1,13 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const siteCss = await readFile(new URL("../app/site.module.css", import.meta.url), "utf8");
 const articleBrowserSource = await readFile(new URL("../app/articles/article-browser.tsx", import.meta.url), "utf8");
+const postsDirectory = new URL("../content/posts/", import.meta.url);
+const postFiles = (await readdir(postsDirectory)).filter((file) => file.endsWith(".md"));
+const publishedPostCount = (await Promise.all(postFiles.map((file) => readFile(new URL(file, postsDirectory), "utf8"))))
+  .filter((source) => !/^published:\s*false\s*$/m.test(source)).length;
 
 function cssRule(selector) {
   const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -75,7 +79,7 @@ test("renders verified copy and article navigation", async () => {
   assert.match(archive, /aria-label="启动文章方向扫描特效"/);
   assert.match(archive, /SCAN \/ 触发扫描/);
   assert.match(archive, /FRONT/);
-  assert.match(archive, /查看全部(?:\s|<!--.*?-->)*16(?:\s|<!--.*?-->)*篇/);
+  assert.match(archive, new RegExp(`查看全部(?:\\s|<!--.*?-->)*${publishedPostCount}(?:\\s|<!--.*?-->)*篇`));
   assert.match(resources, /RESOURCE FIELD \/ CURATED BY LIAZ/);
   assert.match(resources, /<span>资源<\/span><span>工作台<\/span>/);
   assert.match(resources, /<strong>25<\/strong><span>已收录<\/span>/);

@@ -26,7 +26,6 @@ const legacySlugAliases: Record<string, string> = {
   "local-bookmarks-boundaries": "本地收藏的边界",
   "make-blog-light": "轻量个人博客",
   "motion-with-clear-text": "动效与清晰文字",
-  "prepare-ai-interview-answers": "AI面试题准备",
   "reliable-web-collector": "可靠网页采集",
   "small-evals-before-prompt-tuning": "提示词调整前的小型评测",
   "static-blog-search": "静态博客搜索",
