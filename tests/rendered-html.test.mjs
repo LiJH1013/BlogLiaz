@@ -5,9 +5,12 @@ import test from "node:test";
 const siteCss = await readFile(new URL("../app/site.module.css", import.meta.url), "utf8");
 const articleBrowserSource = await readFile(new URL("../app/articles/article-browser.tsx", import.meta.url), "utf8");
 const postsDirectory = new URL("../content/posts/", import.meta.url);
-const postFiles = (await readdir(postsDirectory)).filter((file) => file.endsWith(".md"));
-const publishedPostCount = (await Promise.all(postFiles.map((file) => readFile(new URL(file, postsDirectory), "utf8"))))
+const postFiles = (await readdir(postsDirectory, { recursive: true })).filter((file) => file.endsWith(".md"));
+const publishedPostCount = (await Promise.all(postFiles.map((file) => (
+  readFile(new URL(file.replaceAll("\\", "/"), postsDirectory), "utf8")
+))))
   .filter((source) => !/^published:\s*false\s*$/m.test(source)).length;
+const postSlugs = postFiles.map((file) => file.replaceAll("\\", "/").split("/").pop().replace(/\.md$/, ""));
 
 function cssRule(selector) {
   const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -20,6 +23,10 @@ const workerUrl = new URL(`../dist/server/index.js?test=${Date.now()}`, import.m
 const { default: worker } = await import(workerUrl.href);
 const env = { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } };
 const context = { waitUntil() {}, passThroughOnException() {} };
+
+test("keeps article slugs unique across category directories", () => {
+  assert.equal(new Set(postSlugs).size, postSlugs.length);
+});
 
 async function request(path) {
   return worker.fetch(new Request(`http://localhost${path}`), env, context);

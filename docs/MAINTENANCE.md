@@ -6,7 +6,7 @@
 
 ## 新增文章
 
-在 `content/posts/` 新建一个 `.md` 文件。文件名建议以中文为主，GitHub Pages、Markdown、AI 等技术术语可以保留英文，比如 `我的第一篇文章.md` 或 `GitHub-Pages部署.md`。文件名会成为文章地址的一部分，不要使用空格或标点。
+在 `content/posts/<分类>/` 新建一个 `.md` 文件。分类目录只能使用 `前端`、`爬虫`、`AI` 或 `随笔`，并且要与 frontmatter 中的 `category` 一致。文件名建议以中文为主，GitHub Pages、Markdown、AI 等技术术语可以保留英文，比如 `我的第一篇文章.md` 或 `GitHub-Pages部署.md`。文件名会成为文章地址的一部分，不要使用空格或标点。
 
 ```md
 ---
@@ -24,10 +24,10 @@ published: true
 
 - `published: true` 表示公开。
 - `published: false` 表示保留为草稿。
-- `category` 只能填写 `前端`、`爬虫`、`AI` 或 `随笔`，写错会在构建时直接提示。
+- `category` 只能填写 `前端`、`爬虫`、`AI` 或 `随笔`，并放入同名分类目录。
 - 图片放在 `public/images/`，正文中使用 `/images/文件名.jpg`。
 
-保存后，首页、文章归档、RSS 和站点地图会自动更新。
+保存后，构建脚本会递归读取分类目录，首页、文章归档、RSS 和站点地图会自动更新。
 
 历史文章改名时，要在 `lib/posts.ts` 的 `legacySlugAliases` 中保留旧路径，避免已有链接失效。
 
