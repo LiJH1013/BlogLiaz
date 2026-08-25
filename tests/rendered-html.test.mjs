@@ -22,7 +22,7 @@ async function request(path) {
 }
 
 test("renders the public blog routes", async () => {
-  const routes = ["/", "/articles", "/resources", "/articles/每周笔记整理", "/articles/GitHub-Pages子路径", "/articles/可靠网页采集", "/articles/URL筛选状态", "/articles/采集器与HTTP语义", "/articles/提示词调整前的小型评测", "/articles/weekly-notes", "/about", "/hello", "/privacy"];
+  const routes = ["/", "/articles", "/resources", "/articles/每周笔记整理", "/articles/GitHub-Pages子路径", "/articles/可靠网页采集", "/articles/URL筛选状态", "/articles/采集器与HTTP语义", "/articles/提示词调整前的小型评测", "/articles/从注意力到Agent设计", "/articles/weekly-notes", "/about", "/hello", "/privacy"];
   for (const route of routes) {
     const response = await request(route);
     assert.equal(response.status, 200, route);
@@ -75,7 +75,7 @@ test("renders verified copy and article navigation", async () => {
   assert.match(archive, /aria-label="启动文章方向扫描特效"/);
   assert.match(archive, /SCAN \/ 触发扫描/);
   assert.match(archive, /FRONT/);
-  assert.match(archive, /查看全部(?:\s|<!--.*?-->)*15(?:\s|<!--.*?-->)*篇/);
+  assert.match(archive, /查看全部(?:\s|<!--.*?-->)*16(?:\s|<!--.*?-->)*篇/);
   assert.match(resources, /RESOURCE FIELD \/ CURATED BY LIAZ/);
   assert.match(resources, /<span>资源<\/span><span>工作台<\/span>/);
   assert.match(resources, /<strong>25<\/strong><span>已收录<\/span>/);
