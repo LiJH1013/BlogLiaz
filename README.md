@@ -35,3 +35,22 @@
 如果你发现错字、失效链接或技术问题，欢迎提交 Issue。
 
 站点维护与文章发布方法见 [维护指南](docs/MAINTENANCE.md)。
+
+## 本地开发
+
+需要 Node.js 22.13 或更高版本：
+
+```bash
+npm ci
+npm run dev
+```
+
+提交前运行统一检查：
+
+```bash
+npm run verify
+```
+
+这个命令会依次校验 Markdown、检查代码、运行单元测试、导出 GitHub Pages 静态站点，并核对全部文章、RSS、Sitemap 和资源统计。
+
+项目只保留一套发布链：Markdown 内容位于 `content/posts/`，共享站点与分类配置位于 `config/`，Next.js 将站点导出到 `out/`，GitHub Actions 负责部署到 Pages。

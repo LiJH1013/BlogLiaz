@@ -6,7 +6,7 @@
 
 ## 新增文章
 
-在 `content/posts/<分类>/` 新建一个 `.md` 文件。分类目录只能使用 `前端`、`爬虫`、`AI`、`Python` 或 `随笔`，并且要与 frontmatter 中的 `category` 一致。文件名建议以中文为主，GitHub Pages、Markdown、AI、Python 等技术术语可以保留英文，比如 `我的第一篇文章.md` 或 `GitHub-Pages部署.md`。文件名会成为文章地址的一部分，不要使用空格或标点。
+在 `content/posts/<分类>/` 新建一个 `.md` 文件。可用分类以 `config/topics.json` 为准，分类目录必须与 frontmatter 中的 `category` 一致。文件名建议以中文为主，GitHub Pages、Markdown、AI、Python 等技术术语可以保留英文，比如 `我的第一篇文章.md` 或 `GitHub-Pages部署.md`。文件名会成为文章地址的一部分，只能使用中文、英文字母、数字和连字符。
 
 ```md
 ---
@@ -24,12 +24,17 @@ published: true
 
 - `published: true` 表示公开。
 - `published: false` 表示保留为草稿。
-- `category` 只能填写 `前端`、`爬虫`、`AI`、`Python` 或 `随笔`，并放入同名分类目录。
+- `category` 必须来自 `config/topics.json`，并放入同名分类目录。
+- `date` 必须是真实存在的 `YYYY-MM-DD` 日期。
+- `readingMinutes` 必须是正整数，`tags` 至少包含一个且不能重复。
+- 不支持未声明的 frontmatter 字段，字段拼写错误会直接让构建失败。
 - 图片放在 `public/images/`，正文中使用 `/images/文件名.jpg`。
 
 保存后，构建脚本会递归读取分类目录，首页、文章归档、RSS 和站点地图会自动更新。
 
-历史文章改名时，要在 `lib/posts.ts` 的 `legacySlugAliases` 中保留旧路径，避免已有链接失效。
+历史文章改名时，要在 `config/legacy-slugs.json` 中保留旧路径，避免已有链接失效。生成脚本会检查映射目标是否真实存在。
+
+文章数据会生成到 `.generated/posts.ts`。这个文件不需要提交，`dev`、`lint` 和 `build` 会自动重新生成。
 
 ## 本地预览
 
@@ -50,12 +55,10 @@ npm run dev
 ## 发布前检查
 
 ```bash
-npm run lint
-npm test
-npm run test:pages
+npm run verify
 ```
 
-`npm test` 检查 Sites 版本，`npm run test:pages` 检查 GitHub Pages 静态版本。
+统一检查包含 Markdown 元数据校验、ESLint、单元测试、GitHub Pages 静态构建和完整产物验证。产物验证会自动遍历全部公开文章，不需要手工维护文章数量或路径列表。
 
 ## 发布
 
@@ -67,11 +70,12 @@ git commit -m "Add new blog post"
 git push origin main
 ```
 
-GitHub Actions 会自动更新 GitHub Pages。备用 Sites 地址需要通过 Codex 单独发布。
+GitHub Actions 会运行同一套 `npm run verify`，成功后自动更新 GitHub Pages。
 
 ## 修改站点资料
 
-- 网站名称、简介和 GitHub 地址：`lib/site.ts`
+- 网站名称、简介、GitHub 地址和 Pages 子路径：`config/site.json`
+- 文章分类、编号、图标和访客页名称：`config/topics.json`
 - 关于页：`app/about/page.tsx`
 - 首页短句与日常切片：`app/page.tsx`
 - 颜色和基础字体：`app/globals.css`
@@ -99,6 +103,6 @@ GitHub Actions 会自动更新 GitHub Pages。备用 Sites 地址需要通过 Co
 
 - 更新前先执行 `git pull`。
 - 每次发布前运行完整检查。
-- 图片压缩后再上传，单张建议小于 500 KB。
+- 文章图片压缩后再上传，单张建议小于 500 KB；纹理较多的社交分享图应控制在 2 MB 内。
 - 不要提交密码、访问令牌或个人隐私信息。
 - 每月检查一次首页、文章页、RSS 和手机排版。
