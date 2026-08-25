@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   applicationName: siteConfig.name,
   authors: [{ name: siteConfig.author, url: siteConfig.github }],
   creator: siteConfig.author,
+  icons: {
+    icon: [{ url: `${siteConfig.basePath}/favicon.svg`, type: "image/svg+xml" }],
+    shortcut: `${siteConfig.basePath}/favicon.svg`,
+  },
   alternates: { types: { "application/rss+xml": `${siteConfig.url}/rss.xml` } },
   manifest: `${siteConfig.basePath}/manifest.webmanifest`,
   openGraph: {

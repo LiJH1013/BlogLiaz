@@ -1,0 +1,10 @@
+{
+  "name": "野路子手记",
+  "shortName": "野路子",
+  "author": "Liaz",
+  "description": "记录前端、爬虫、AI 与 Python 工程实践的个人博客，偶尔也写普通生活。",
+  "url": "https://lijh1013.github.io/BlogLiaz",
+  "pagesBasePath": "/BlogLiaz",
+  "github": "https://github.com/LiJH1013",
+  "repository": "https://github.com/LiJH1013/BlogLiaz"
+}

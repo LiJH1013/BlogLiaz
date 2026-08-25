@@ -1,0 +1,37 @@
+{
+  "前端": {
+    "index": "01",
+    "description": "界面、体验与部署",
+    "id": "frontend",
+    "mark": "</>",
+    "helloLabel": "前端"
+  },
+  "爬虫": {
+    "index": "02",
+    "description": "采集、清洗与稳定性",
+    "id": "crawler",
+    "mark": "◎",
+    "helloLabel": "爬虫"
+  },
+  "AI": {
+    "index": "03",
+    "description": "模型应用与工程实践",
+    "id": "ai",
+    "mark": "✦",
+    "helloLabel": "AI"
+  },
+  "Python": {
+    "index": "04",
+    "description": "语言基础与工程实践",
+    "id": "python",
+    "mark": "Py",
+    "helloLabel": "Python"
+  },
+  "随笔": {
+    "index": "05",
+    "description": "偶尔记录普通生活",
+    "id": "life",
+    "mark": "□",
+    "helloLabel": "生活"
+  }
+}

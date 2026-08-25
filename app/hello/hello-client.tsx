@@ -1,24 +1,16 @@
 "use client";
 
 import { FormEvent, PointerEvent, useRef, useState } from "react";
+import { helloTopics, topicDefinitions, type PostCategory } from "@/lib/topics";
 import styles from "./hello.module.css";
 
-const topics = [
-  { id: "frontend", label: "前端", mark: "</>" },
-  { id: "crawler", label: "爬虫", mark: "◎" },
-  { id: "ai", label: "AI", mark: "✦" },
-  { id: "python", label: "Python", mark: "Py" },
-  { id: "life", label: "生活", mark: "□" },
-] as const;
-
-type Topic = typeof topics[number]["id"];
 type ActiveField = "name" | "age" | "message" | null;
 
 export function HelloClient() {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [message, setMessage] = useState("");
-  const [topic, setTopic] = useState<Topic>("frontend");
+  const [topic, setTopic] = useState<PostCategory>("前端");
   const [activeField, setActiveField] = useState<ActiveField>(null);
   const [generated, setGenerated] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -29,7 +21,7 @@ export function HelloClient() {
   const ageIsValid = /^\d{1,3}$/.test(age) && ageNumber >= 1 && ageNumber <= 120;
   const ageHasError = age.length > 0 && !ageIsValid;
   const displayName = name.trim() || "匿名探索者";
-  const topicLabel = topics.find((item) => item.id === topic)?.label ?? "前端";
+  const topicLabel = topicDefinitions[topic].helloLabel;
 
   function updateEyes(event: PointerEvent<HTMLDivElement>) {
     if (!stageRef.current) return;
@@ -52,7 +44,7 @@ export function HelloClient() {
     target.style.setProperty("--cursor-y", "0px");
   }
 
-  function selectTopic(nextTopic: Topic) {
+  function selectTopic(nextTopic: PostCategory) {
     setTopic(nextTopic);
     setGenerated(false);
   }
@@ -111,14 +103,14 @@ export function HelloClient() {
         <fieldset className={styles.topicField}>
           <legend>你最近在关注什么</legend>
           <div>
-            {topics.map((item) => (
+            {helloTopics.map((item) => (
               <button
-                aria-pressed={topic === item.id}
+                aria-pressed={topic === item.name}
                 key={item.id}
-                onClick={() => selectTopic(item.id)}
+                onClick={() => selectTopic(item.name)}
                 type="button"
               >
-                <span aria-hidden="true">{item.mark}</span>{item.label}
+                <span aria-hidden="true">{item.mark}</span>{item.helloLabel}
               </button>
             ))}
           </div>
@@ -147,7 +139,7 @@ export function HelloClient() {
         className={styles.characterStage}
         data-focus={activeField ?? "idle"}
         data-generated={generated}
-        data-topic={topic}
+        data-topic={topicDefinitions[topic].id}
         onPointerLeave={resetEyes}
         onPointerMove={updateEyes}
         ref={stageRef}
@@ -228,7 +220,7 @@ export function HelloClient() {
 
         <div className={styles.characterCaption} aria-live="polite">
           <span>{generated ? "访客签已盖章" : activeField === "age" ? "等一下，让我看清楚" : "纸片人正在值班"}</span>
-          <strong>{generated ? displayName : ageIsValid ? `${ageNumber} 岁的探索者` : topic === "life" ? "偶尔也要看看生活" : `正在关注${topicLabel}`}</strong>
+          <strong>{generated ? displayName : ageIsValid ? `${ageNumber} 岁的探索者` : topic === "随笔" ? "偶尔也要看看生活" : `正在关注${topicLabel}`}</strong>
           <p>{generated ? (message.trim() || `今天来野路子手记逛了逛，最近关注${topicLabel}。`) : "移动鼠标，它会看向你；聚焦年龄输入框，眼睛会明显放大。"}</p>
         </div>
       </div>

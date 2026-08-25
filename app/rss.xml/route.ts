@@ -9,6 +9,9 @@ function escapeXml(value: string) {
 
 export function GET() {
   const posts = getAllPosts();
+  const lastBuildDate = posts[0]
+    ? `<lastBuildDate>${new Date(`${posts[0].date}T00:00:00+08:00`).toUTCString()}</lastBuildDate>`
+    : "";
   const items = posts.map((post) => `
     <item>
       <title>${escapeXml(post.title)}</title>
@@ -24,7 +27,7 @@ export function GET() {
       <atom:link href="${siteConfig.url}/rss.xml" rel="self" type="application/rss+xml" />
       <description>${siteConfig.description}</description>
       <language>zh-CN</language>
-      <lastBuildDate>${new Date(`${posts[0]?.date ?? siteConfig.lastUpdated}T00:00:00+08:00`).toUTCString()}</lastBuildDate>${items}
+      ${lastBuildDate}${items}
     </channel></rss>`;
   return new Response(xml, { headers: { "Content-Type": "application/rss+xml; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
 }

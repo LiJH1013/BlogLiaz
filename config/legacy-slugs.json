@@ -1,0 +1,16 @@
+{
+  "crawler-http-semantics": "采集器与HTTP语义",
+  "deploy-static-site": "从零部署静态网站",
+  "eduagent-multi-agent-engineering": "EduAgent多Agent工程",
+  "github-pages-basepath": "GitHub-Pages子路径",
+  "local-bookmarks-boundaries": "本地收藏的边界",
+  "make-blog-light": "轻量个人博客",
+  "motion-with-clear-text": "动效与清晰文字",
+  "reliable-web-collector": "可靠网页采集",
+  "small-evals-before-prompt-tuning": "提示词调整前的小型评测",
+  "static-blog-search": "静态博客搜索",
+  "structured-ai-output": "大模型结构化输出",
+  "url-backed-filters": "URL筛选状态",
+  "validate-markdown-at-build": "Markdown构建校验",
+  "weekly-notes": "每周笔记整理"
+}
