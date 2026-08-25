@@ -174,11 +174,12 @@
 .fieldTagFront { top: 18%; right: 5%; transform: translate3d(calc(0px - var(--drift-x)),calc(0px - var(--drift-y)),26px) rotate(4deg); }
 .fieldTagCrawler { top: 52%; left: -5%; background: var(--accent); transform: translate3d(var(--drift-x),var(--drift-y),30px) rotate(-6deg); }
 .fieldTagAi { right: 9%; bottom: 19%; background: var(--ink); color: var(--paper); transform: translate3d(var(--drift-x),var(--drift-y),24px) rotate(-2deg); }
+.fieldTagPython { top: 8%; left: 48%; background: oklch(58% .13 252); color: var(--paper); transform: translate3d(var(--drift-x),calc(0px - var(--drift-y)),28px) rotate(-3deg); }
 .fieldTagTools { left: 15%; bottom: 8%; transform: translate3d(calc(0px - var(--drift-x)),calc(0px - var(--drift-y)),18px) rotate(5deg); }
 
 .resourceStats {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
+  grid-template-columns: repeat(6,1fr);
   border-bottom: 1px solid var(--ink);
   background: var(--ink);
   color: var(--paper);
@@ -343,7 +344,7 @@
 .categoryFilters {
   margin-top: 16px;
   display: grid;
-  grid-template-columns: repeat(6,minmax(0,1fr));
+  grid-template-columns: repeat(7,minmax(0,1fr));
   border: 1px solid var(--ink);
 }
 
@@ -415,7 +416,8 @@
 .resourceRow[data-category="前端"]::before { background: var(--accent); }
 .resourceRow[data-category="爬虫"]::before { background: var(--acid); }
 .resourceRow[data-category="AI"]::before { background: var(--ink); }
-.resourceRow[data-category="工具"]::before { background: oklch(58% .12 240); }
+.resourceRow[data-category="Python"]::before { background: oklch(58% .13 252); }
+.resourceRow[data-category="工具"]::before { background: oklch(58% .12 305); }
 .resourceRow[data-spotlight="true"] { z-index: 1; padding-inline: 18px; background: var(--acid); box-shadow: 9px 9px 0 var(--ink); transform: translate(-8px,-8px); }
 .resourceRow[data-spotlight="true"]::before { opacity: 1; transform: scaleY(1); }
 .resourceNumber { padding-top: 5px; font: 900 13px/1 var(--font-display); }
@@ -492,10 +494,15 @@
 @media (max-width: 980px) {
   .resourceHero { grid-template-columns: minmax(0,1fr) minmax(300px,.65fr); gap: 42px; }
   .fieldSheet { width: min(100%,390px); }
+  .resourceStats { grid-template-columns: repeat(3,1fr); }
+  .resourceStats p { border-bottom: 1px solid oklch(100% 0 0 / 22%); }
+  .resourceStats p:nth-child(3n) { border-right: 0; }
+  .resourceStats p:nth-last-child(-n+3) { border-bottom: 0; }
   .liazPicks, .resourceIndex { grid-template-columns: 190px minmax(0,1fr); gap: 46px; }
-  .categoryFilters { grid-template-columns: repeat(3,1fr); }
-  .categoryFilters button:nth-child(3n) { border-right: 0; }
-  .categoryFilters button:nth-child(-n+3) { border-bottom: 1px solid var(--ink); }
+  .categoryFilters { grid-template-columns: repeat(4,1fr); }
+  .categoryFilters button:nth-child(4) { border-right: 0; }
+  .categoryFilters button:nth-child(-n+4) { border-bottom: 1px solid var(--ink); }
+  .categoryFilters button:last-child { grid-column: span 2; }
 }
 
 @media (max-width: 760px) {
@@ -507,7 +514,9 @@
   .fieldSheet { margin: 0; box-shadow: 10px 10px 0 var(--ink); transform: rotate(-2deg); }
   .resourceStats { grid-template-columns: repeat(2,1fr); }
   .resourceStats p { min-height: 104px; border-bottom: 1px solid oklch(100% 0 0 / 22%); }
+  .resourceStats p:nth-child(3n) { border-right: 1px solid oklch(100% 0 0 / 22%); }
   .resourceStats p:nth-child(2n) { border-right: 0; }
+  .resourceStats p:nth-last-child(-n+3) { border-bottom: 1px solid oklch(100% 0 0 / 22%); }
   .resourceStats p:nth-last-child(-n+2) { border-bottom: 0; }
   .liazPicks, .resourceIndex { grid-template-columns: 1fr; }
   .sectionLabel { position: static; }
@@ -527,6 +536,10 @@
   .fieldTag { font-size: 10px; }
   .fieldTagCrawler { left: -2%; }
   .resourceStats strong { font-size: 42px; }
+  .categoryFilters { grid-template-columns: repeat(2,1fr); }
+  .categoryFilters button { border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .categoryFilters button:nth-child(2n) { border-right: 0; }
+  .categoryFilters button:last-child { grid-column: span 2; border-bottom: 0; }
   .categoryFilters button { padding-inline: 8px; font-size: 12px; }
   .resourceCopy h3 { font-size: 28px; }
   .resourceCopy > p:nth-of-type(2) { font-size: 13px; }

@@ -1,4 +1,6 @@
-export type ResourceCategory = "前端" | "爬虫" | "AI" | "工具";
+export const resourceCategories = ["前端", "爬虫", "AI", "Python", "工具"] as const;
+
+export type ResourceCategory = (typeof resourceCategories)[number];
 
 export type ResourceItem = {
   id: string;
@@ -99,7 +101,7 @@ export const resources: ResourceItem[] = [
     id: "beautiful-soup",
     title: "Beautiful Soup 文档",
     url: "https://www.crummy.com/software/BeautifulSoup/bs4/doc/",
-    category: "爬虫",
+    category: "Python",
     source: "Beautiful Soup",
     format: "官方文档",
     note: "适合快速解析 HTML，定位节点、清理文本和处理不够规整的页面结构。",
@@ -190,7 +192,7 @@ export const resources: ResourceItem[] = [
     id: "python-robotparser",
     title: "Python urllib.robotparser",
     url: "https://docs.python.org/3/library/urllib.robotparser.html",
-    category: "爬虫",
+    category: "Python",
     source: "Python",
     format: "官方文档",
     note: "用标准库读取 robots.txt，并检查指定 User-Agent 是否允许访问某条路径。",
@@ -200,7 +202,7 @@ export const resources: ResourceItem[] = [
     id: "requests-advanced",
     title: "Requests 高级用法",
     url: "https://requests.readthedocs.io/en/stable/user/advanced/",
-    category: "爬虫",
+    category: "Python",
     source: "Requests",
     format: "官方文档",
     note: "需要会话、连接复用、预处理请求或 TLS 配置时，按实际请求链路查对应章节。",

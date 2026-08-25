@@ -7,7 +7,7 @@ import { ResourceExplorer } from "./resources-client";
 
 export const metadata: Metadata = {
   title: "资源",
-  description: "Liaz 整理的前端、爬虫、AI 与工程工具资源索引。",
+  description: "Liaz 整理的前端、爬虫、AI、Python 与工程工具资源索引。",
   alternates: { canonical: `${siteConfig.url}/resources` },
 };
 

@@ -2,10 +2,17 @@
 
 import type { PointerEvent as ReactPointerEvent } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { ResourceCategory, ResourceItem } from "@/lib/resources";
+import { resourceCategories, type ResourceCategory, type ResourceItem } from "@/lib/resources";
 import styles from "./resources.module.css";
 
-const categories: Array<"全部" | ResourceCategory> = ["全部", "前端", "爬虫", "AI", "工具"];
+const categories: Array<"全部" | ResourceCategory> = ["全部", ...resourceCategories];
+const fieldTags: Record<ResourceCategory, { label: string; className: string }> = {
+  "前端": { label: "FRONTEND", className: styles.fieldTagFront },
+  "爬虫": { label: "CRAWLER", className: styles.fieldTagCrawler },
+  "AI": { label: "AI LAB", className: styles.fieldTagAi },
+  "Python": { label: "PYTHON", className: styles.fieldTagPython },
+  "工具": { label: "TOOLS", className: styles.fieldTagTools },
+};
 const savedStorageKey = "liaz-resource-shelf";
 
 export function ResourceExplorer({ resources }: { resources: ResourceItem[] }) {
@@ -167,10 +174,9 @@ export function ResourceExplorer({ resources }: { resources: ResourceItem[] }) {
         <div className={styles.resourceField} onPointerMove={moveResourceField} onPointerLeave={resetResourceField} aria-hidden="true">
           <div className={styles.fieldSheet}>
             <span className={styles.fieldCoordinates}>RESOURCE GRID<br />INDEX 2026</span>
-            <span className={`${styles.fieldTag} ${styles.fieldTagFront}`}>FRONTEND</span>
-            <span className={`${styles.fieldTag} ${styles.fieldTagCrawler}`}>CRAWLER</span>
-            <span className={`${styles.fieldTag} ${styles.fieldTagAi}`}>AI LAB</span>
-            <span className={`${styles.fieldTag} ${styles.fieldTagTools}`}>TOOLS</span>
+            {resourceCategories.map((name) => (
+              <span key={name} className={`${styles.fieldTag} ${fieldTags[name].className}`}>{fieldTags[name].label}</span>
+            ))}
             <strong>LIAZ</strong>
             <small>FIELD NOTES<br />NO. 001</small>
           </div>
@@ -179,7 +185,7 @@ export function ResourceExplorer({ resources }: { resources: ResourceItem[] }) {
 
       <section className={styles.resourceStats} aria-label="资源统计">
         <p><strong>{String(resources.length).padStart(2, "0")}</strong><span>已收录</span></p>
-        {(["前端", "爬虫", "AI"] as ResourceCategory[]).map((name) => (
+        {resourceCategories.map((name) => (
           <p key={name}><strong>{String(resources.filter((item) => item.category === name).length).padStart(2, "0")}</strong><span>{name}</span></p>
         ))}
       </section>
