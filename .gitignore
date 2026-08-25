@@ -45,3 +45,6 @@ next-env.d.ts
 
 # local writing drafts; reviewed posts belong in /content/posts
 /drafts/
+
+# generated from content/posts during local commands and CI builds
+/.generated/
