@@ -65,7 +65,7 @@ function createPost(path: string, source: string): Post {
     throw new Error(`${path} 的文件名只能使用中文、英文字母、数字和连字符`);
   }
   if (!isPostCategory(data.category)) {
-    throw new Error(`${path} 的 category 必须是：前端、爬虫、AI、随笔`);
+    throw new Error(`${path} 的 category 必须是：前端、爬虫、AI、Python、随笔`);
   }
   const tableOfContents: { id: string; title: string }[] = [];
   const html = (marked.parse(body) as string).replace(/<h2>([\s\S]*?)<\/h2>/g, (heading, content) => {

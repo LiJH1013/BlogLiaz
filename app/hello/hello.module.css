@@ -29,7 +29,7 @@
 .field[data-error="true"] em { color: var(--ink); font-weight: 850; text-decoration: underline 3px var(--accent); text-underline-offset: 3px; }
 .topicField { min-width: 0; margin: 0; padding: 26px 0 24px; border: 0; border-bottom: 1px solid var(--ink); }
 .topicField legend { margin-bottom: 18px; padding: 0; }
-.topicField > div { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); }
+.topicField > div { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); }
 .topicField button { min-height: 82px; padding: 10px 6px; display: grid; place-content: center; gap: 7px; border: 1px solid var(--ink); border-right: 0; border-radius: 0; background: transparent; color: var(--ink); cursor: pointer; font: 800 12px/1 var(--font-body); transition: background-color 160ms ease-out, color 160ms ease-out; }
 .topicField button:last-child { border-right: 1px solid var(--ink); }
 .topicField button span { font: 900 20px/1 var(--font-display); }
@@ -59,14 +59,14 @@
 .armLeft, .armRight { fill: none; stroke: var(--ink); stroke-width: 8; stroke-linecap: round; }
 .handLeft, .handRight { fill: var(--accent); stroke: var(--ink); stroke-width: 4; }
 .liazMark { fill: var(--ink); font: 900 38px/1 var(--font-display); letter-spacing: .12em; }
-.frontendProp, .crawlerProp, .aiProp, .lifeProp { opacity: 0; transition: opacity 180ms ease-out; }
-.frontendProp rect, .lifeProp rect { fill: var(--accent); stroke: var(--ink); stroke-width: 4; }
-.frontendProp path, .crawlerProp path, .lifeProp path { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.frontendProp, .crawlerProp, .aiProp, .pythonProp, .lifeProp { opacity: 0; transition: opacity 180ms ease-out; }
+.frontendProp rect, .pythonProp rect, .lifeProp rect { fill: var(--accent); stroke: var(--ink); stroke-width: 4; }
+.frontendProp path, .crawlerProp path, .pythonProp path, .lifeProp path { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
 .crawlerProp circle { fill: var(--accent); stroke: var(--ink); stroke-width: 4; }
 .aiProp path { fill: var(--accent); stroke: var(--ink); stroke-width: 4; }
 .aiProp rect { fill: var(--ink); }
 .lifeProp circle { fill: var(--acid); stroke: var(--ink); stroke-width: 4; }
-.characterStage[data-topic="frontend"] .frontendProp, .characterStage[data-topic="crawler"] .crawlerProp, .characterStage[data-topic="ai"] .aiProp, .characterStage[data-topic="life"] .lifeProp { opacity: 1; }
+.characterStage[data-topic="frontend"] .frontendProp, .characterStage[data-topic="crawler"] .crawlerProp, .characterStage[data-topic="ai"] .aiProp, .characterStage[data-topic="python"] .pythonProp, .characterStage[data-topic="life"] .lifeProp { opacity: 1; }
 .characterStage[data-focus="name"] { --eye-x: -7px; --eye-y: 1px; }
 .characterStage[data-focus="age"] { --eye-x: -9px; --eye-y: 2px; }
 .characterStage[data-focus="message"] { --eye-x: -8px; --eye-y: 6px; }
@@ -115,8 +115,9 @@
   .helloHeading h1 span { text-shadow: 3px 3px 0 var(--ink); }
   .visitorDesk { gap: 56px; }
   .topicField > div { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .topicField button:nth-child(2) { border-right: 1px solid var(--ink); }
-  .topicField button:nth-child(-n+2) { border-bottom: 0; }
+  .topicField button:nth-child(2n) { border-right: 1px solid var(--ink); }
+  .topicField button:nth-child(-n+4) { border-bottom: 0; }
+  .topicField button:last-child { grid-column: 1 / -1; }
   .field input, .field textarea { font-size: 22px; }
   .characterStage { min-height: 540px; padding-inline: 12px; grid-template-rows: auto minmax(300px,1fr) auto; box-shadow: 8px 8px 0 var(--ink); }
   .characterCaption { min-height: 132px; padding: 17px; }

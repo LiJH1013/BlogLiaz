@@ -7,6 +7,7 @@ const topics = [
   { id: "frontend", label: "前端", mark: "</>" },
   { id: "crawler", label: "爬虫", mark: "◎" },
   { id: "ai", label: "AI", mark: "✦" },
+  { id: "python", label: "Python", mark: "Py" },
   { id: "life", label: "生活", mark: "□" },
 ] as const;
 
@@ -205,6 +206,10 @@ export function HelloClient() {
             <path d="M261 299l13 35 35 13-35 13-13 35-13-35-35-13 35-13z" />
             <rect x="188" y="312" width="13" height="13" />
             <rect x="320" y="377" width="11" height="11" />
+          </g>
+          <g className={styles.pythonProp} aria-hidden="true">
+            <rect x="177" y="307" width="168" height="82" />
+            <path d="M202 333l18 14-18 14M237 365h31M289 330h30M289 347h20M289 364h30" />
           </g>
           <g className={styles.lifeProp} aria-hidden="true">
             <rect x="194" y="305" width="135" height="91" />

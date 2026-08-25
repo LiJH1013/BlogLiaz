@@ -31,7 +31,7 @@ const posts = Object.fromEntries(
 
 ## Frontmatter 需要最小约束
 
-当前文章至少要有 `title`、`date`、`category` 和 `summary`。日期固定为 `YYYY-MM-DD`，分类只能是前端、爬虫、AI 或随笔。缺字段时直接抛错，比部署成功后出现空标题更容易定位。
+当前文章至少要有 `title`、`date`、`category` 和 `summary`。日期固定为 `YYYY-MM-DD`，分类只能是前端、爬虫、AI、Python 或随笔。缺字段时直接抛错，比部署成功后出现空标题更容易定位。
 
 文件名会成为 URL，所以只允许中文、英文字母、数字和连字符。`我的 新文章.md` 或带连续特殊符号的文件名会在构建时失败。文件名以中文为主，GitHub Pages、Markdown、AI 等技术术语可以保留英文，路径仍要保持稳定并便于分享。
 

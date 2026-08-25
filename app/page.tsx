@@ -7,9 +7,9 @@ import { HeroDepth } from "./hero-depth";
 import styles from "./site.module.css";
 
 const notes = [
+  ["08.25", "新增 Python 文章分类，归档与访客页同步开放入口。"],
   ["07.21", "补齐可分享筛选、同主题阅读与移动端代码体验。"],
   ["07.16", "补充前端、爬虫与 AI 工程文章，技术主线现在更清楚。"],
-  ["07.12", "文章改用 Markdown 管理，更新会自动进入 RSS 与站点地图。"],
 ];
 
 const marqueePhrases = ["写下经验", "保留好奇", "持续更新"];
@@ -46,7 +46,7 @@ export default function Home() {
             <span lang="zh-CN" className={styles.heroAccent}>手记</span>
           </h1>
           <div className={`${styles.heroFoot} ${styles.enterThree}`}>
-            <p>关于前端、爬虫与 AI 工程。<br />偶尔也记录普通生活。</p>
+            <p>关于前端、爬虫、AI 与 Python 工程。<br />偶尔也记录普通生活。</p>
             <a className={styles.roundLink} href="#featured" aria-label="向下查看精选文章">向下<br />阅读</a>
           </div>
           <HeroDepth />

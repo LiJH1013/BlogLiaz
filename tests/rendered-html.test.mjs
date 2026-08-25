@@ -76,7 +76,8 @@ test("renders verified copy and article navigation", async () => {
   assert.match(hello, /HELLO LIAZ \/ 访客登记处/);
   assert.match(hello, /只用来触发纸片人的反应/);
   assert.match(hello, /生成访客签/);
-  assert.match(home, /前端、爬虫与 AI 工程/);
+  assert.match(hello, /<span aria-hidden="true">Py<\/span>Python/);
+  assert.match(home, /前端、爬虫、AI 与 Python 工程/);
   assert.match(home, />LIAZ<\/a>/);
   assert.match(home, /aria-label="打开 LIAZ 的 GitHub 主页（新窗口）"/);
   assert.match(home, /aria-label="进入文章归档页"/);
@@ -86,6 +87,7 @@ test("renders verified copy and article navigation", async () => {
   assert.match(archive, /aria-label="启动文章方向扫描特效"/);
   assert.match(archive, /SCAN \/ 触发扫描/);
   assert.match(archive, /FRONT/);
+  assert.match(archive, /04(?:\s|<!--.*?-->)*\/(?:\s|<!--.*?-->)*00<\/span><strong>Python<\/strong>/);
   assert.match(archive, new RegExp(`查看全部(?:\\s|<!--.*?-->)*${publishedPostCount}(?:\\s|<!--.*?-->)*篇`));
   assert.match(resources, /RESOURCE FIELD \/ CURATED BY LIAZ/);
   assert.match(resources, /<span>资源<\/span><span>工作台<\/span>/);

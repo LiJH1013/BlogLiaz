@@ -24,7 +24,7 @@ BlogLiaz 的归档页把关键词、分类和标签放进查询参数。一个�
 
 ## 读取时要过滤无效值
 
-页面加载后可以用 `URLSearchParams` 读取条件。分类不能直接相信地址栏传来的字符串，BlogLiaz 会确认它属于已有的四个方向，未知值退回“全部”。
+页面加载后可以用 `URLSearchParams` 读取条件。分类不能直接相信地址栏传来的字符串，BlogLiaz 会确认它属于已有的五个方向，未知值退回“全部”。
 
 ```ts
 const params = new URLSearchParams(window.location.search);

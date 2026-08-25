@@ -35,8 +35,7 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
   const pointerPosition = useRef({ x: 0, y: 0 });
   const featuredPost = posts.find((post) => post.featured) ?? posts[0];
   const topics = topicOrder
-    .map((name) => ({ name, count: posts.filter((post) => post.category === name).length }))
-    .filter((topic) => topic.count > 0);
+    .map((name) => ({ name, count: posts.filter((post) => post.category === name).length }));
 
   const filtered = useMemo(() => {
     const keyword = query.trim().toLocaleLowerCase("zh-CN");
@@ -214,7 +213,7 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
         <h1 className={styles.archiveTitle}>所有<br />文章</h1>
         <div className={styles.archiveIntro}>
           <p className={styles.archiveStatement}>这里主要记录可复现的技术过程，也偶尔留下普通生活。</p>
-          <p>从前端、爬虫和 AI 开始，按兴趣选择方向，或者直接搜索一个问题。</p>
+          <p>从前端、爬虫、AI 和 Python 开始，按兴趣选择方向，或者直接搜索一个问题。</p>
           <button className={styles.archiveAllButton} type="button" aria-pressed={category === "全部"} onClick={() => selectCategory("全部")}>查看全部 {String(posts.length).padStart(2, "0")} 篇</button>
           <button className={styles.scanFallback} type="button" onClick={(event) => triggerScan(elementCenter(event.currentTarget))}>SCAN / 触发扫描</button>
         </div>
@@ -230,7 +229,7 @@ export function ArticleBrowser({ posts }: { posts: BrowserPost[] }) {
           <span className={styles.cursorInner} aria-hidden="true" />
           <span className={styles.cursorSweep} aria-hidden="true" />
           <span className={styles.cursorDot} aria-hidden="true" />
-          <i aria-hidden="true">FRONT</i><i aria-hidden="true">CRAWL</i><i aria-hidden="true">AI</i><i aria-hidden="true">LIFE</i>
+          <i aria-hidden="true">FRONT</i><i aria-hidden="true">CRAWL</i><i aria-hidden="true">AI</i><i aria-hidden="true">PY</i><i aria-hidden="true">LIFE</i>
           <b data-coordinate="X 000 / Y 000" ref={pointerReadoutRef} aria-hidden="true">SCAN</b>
         </button>
         <p className={styles.scanStatus} aria-live="polite">{scanStatus}</p>
