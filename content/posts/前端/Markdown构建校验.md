@@ -12,7 +12,7 @@ published: true
 
 ## Markdown 文件先生成代码索引
 
-BlogLiaz 把正文按分类放在 `content/posts` 的子目录中。构建前的脚本递归读取所有 `.md` 文件，生成 `content/posts.generated.ts`，应用再从这份模块中解析文章。
+BlogLiaz 把正文按分类放在 `content/posts` 的子目录中。构建前的脚本递归读取所有 `.md` 文件，校验 frontmatter，并生成无需提交的 `.generated/posts.ts`，应用直接消费这份结构化数据。
 
 ```js
 const files = (await readdir(postsDirectory, { recursive: true }))
