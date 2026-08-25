@@ -6,7 +6,7 @@
 
 ## 新增文章
 
-在 `content/posts/` 新建一个 `.md` 文件。推荐使用小写英文和连字符命名，比如 `my-first-post.md`。文件名会成为文章地址的一部分。
+在 `content/posts/` 新建一个 `.md` 文件。文件名建议以中文为主，GitHub Pages、Markdown、AI 等技术术语可以保留英文，比如 `我的第一篇文章.md` 或 `GitHub-Pages部署.md`。文件名会成为文章地址的一部分，不要使用空格或标点。
 
 ```md
 ---
@@ -28,6 +28,8 @@ published: true
 - 图片放在 `public/images/`，正文中使用 `/images/文件名.jpg`。
 
 保存后，首页、文章归档、RSS 和站点地图会自动更新。
+
+历史文章改名时，要在 `lib/posts.ts` 的 `legacySlugAliases` 中保留旧路径，避免已有链接失效。
 
 ## 本地预览
 

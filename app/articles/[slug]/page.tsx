@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { formatPostDate, getAllPosts, getPost } from "@/lib/posts";
+import { formatPostDate, getAllPostSlugs, getAllPosts, getPost } from "@/lib/posts";
 import { siteConfig } from "@/lib/site";
 import { SiteFooter, SiteHeader } from "../../site-chrome";
 import { ShareActions } from "../share-actions";
 import styles from "../../site.module.css";
 
 export function generateStaticParams() {
-  return getAllPosts().map((post) => ({ slug: post.slug }));
+  return getAllPostSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -39,7 +39,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const posts = getAllPosts();
   const post = getPost(slug);
   if (!post) notFound();
-  const index = posts.findIndex((item) => item.slug === slug);
+  const index = posts.findIndex((item) => item.slug === post.slug);
   const newer = index > 0 ? posts[index - 1] : undefined;
   const older = index < posts.length - 1 ? posts[index + 1] : undefined;
   const related = posts

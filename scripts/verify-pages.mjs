@@ -9,12 +9,13 @@ const required = [
   "index.html",
   "404.html",
   "articles/index.html",
+  "articles/每周笔记整理/index.html",
+  "articles/GitHub-Pages子路径/index.html",
+  "articles/可靠网页采集/index.html",
+  "articles/URL筛选状态/index.html",
+  "articles/采集器与HTTP语义/index.html",
+  "articles/提示词调整前的小型评测/index.html",
   "articles/weekly-notes/index.html",
-  "articles/github-pages-basepath/index.html",
-  "articles/reliable-web-collector/index.html",
-  "articles/url-backed-filters/index.html",
-  "articles/crawler-http-semantics/index.html",
-  "articles/small-evals-before-prompt-tuning/index.html",
   "resources/index.html",
   "about/index.html",
   "hello/index.html",
@@ -30,9 +31,9 @@ const home = await readFile(join(out, "index.html"), "utf8");
 const about = await readFile(join(out, "about", "index.html"), "utf8");
 const hello = await readFile(join(out, "hello", "index.html"), "utf8");
 const resources = await readFile(join(out, "resources", "index.html"), "utf8");
-const article = await readFile(join(out, "articles", "weekly-notes", "index.html"), "utf8");
-const relatedArticle = await readFile(join(out, "articles", "github-pages-basepath", "index.html"), "utf8");
-const urlFilterArticle = await readFile(join(out, "articles", "url-backed-filters", "index.html"), "utf8");
+const article = await readFile(join(out, "articles", "每周笔记整理", "index.html"), "utf8");
+const relatedArticle = await readFile(join(out, "articles", "GitHub-Pages子路径", "index.html"), "utf8");
+const urlFilterArticle = await readFile(join(out, "articles", "URL筛选状态", "index.html"), "utf8");
 const notFound = await readFile(join(out, "404.html"), "utf8");
 const rss = await readFile(join(out, "rss.xml"), "utf8");
 const sitemap = await readFile(join(out, "sitemap.xml"), "utf8");

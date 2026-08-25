@@ -22,7 +22,7 @@ async function request(path) {
 }
 
 test("renders the public blog routes", async () => {
-  const routes = ["/", "/articles", "/resources", "/articles/weekly-notes", "/articles/github-pages-basepath", "/articles/reliable-web-collector", "/articles/url-backed-filters", "/articles/crawler-http-semantics", "/articles/small-evals-before-prompt-tuning", "/about", "/hello", "/privacy"];
+  const routes = ["/", "/articles", "/resources", "/articles/每周笔记整理", "/articles/GitHub-Pages子路径", "/articles/可靠网页采集", "/articles/URL筛选状态", "/articles/采集器与HTTP语义", "/articles/提示词调整前的小型评测", "/articles/weekly-notes", "/about", "/hello", "/privacy"];
   for (const route of routes) {
     const response = await request(route);
     assert.equal(response.status, 200, route);
@@ -52,8 +52,8 @@ test("renders verified copy and article navigation", async () => {
   const resources = await (await request("/resources")).text();
   const about = await (await request("/about")).text();
   const hello = await (await request("/hello")).text();
-  const article = await (await request("/articles/weekly-notes")).text();
-  const relatedArticle = await (await request("/articles/github-pages-basepath")).text();
+  const article = await (await request("/articles/每周笔记整理")).text();
+  const relatedArticle = await (await request("/articles/GitHub-Pages子路径")).text();
 
   assert.doesNotMatch(home, /读完《|走了十二公里/);
   assert.doesNotMatch(about, /TO BE CONTINUED|暂时用一张字卡/);
