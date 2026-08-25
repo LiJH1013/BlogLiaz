@@ -75,7 +75,7 @@ test("renders verified copy and article navigation", async () => {
   assert.match(archive, /aria-label="启动文章方向扫描特效"/);
   assert.match(archive, /SCAN \/ 触发扫描/);
   assert.match(archive, /FRONT/);
-  assert.match(archive, /查看全部(?:\s|<!--.*?-->)*14(?:\s|<!--.*?-->)*篇/);
+  assert.match(archive, /查看全部(?:\s|<!--.*?-->)*15(?:\s|<!--.*?-->)*篇/);
   assert.match(resources, /RESOURCE FIELD \/ CURATED BY LIAZ/);
   assert.match(resources, /<span>资源<\/span><span>工作台<\/span>/);
   assert.match(resources, /<strong>25<\/strong><span>已收录<\/span>/);
